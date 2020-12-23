@@ -31,30 +31,29 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
 -  Table: Docker Vs Virtual Machines*
 
-
     ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
 
 ****
 
   
 
-- **Why Containers ?**
+**Why Containers ?**
 
-    Containers provide the following benefits
-    - Reduced IT management resources
+Containers provide the following benefits
+- Reduced IT management resources
 
-    - Reduced size of snapshots
+- Reduced size of snapshots
 
-    - Quicker spinning up apps
+- Quicker spinning up apps
 
-    - Reduced and simplified security updates
+- Reduced and simplified security updates
 
-    - Less code to transfer, migrate, and upload workloads
+- Less code to transfer, migrate, and upload workloads
 
 
 Unlike virtual machines, containers do not have high overhead and hence enable more efficient usage of the underlying system and resources.
 
-FThe isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
+The isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
 
 ****
 **Docker Architecture**
