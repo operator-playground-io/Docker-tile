@@ -25,7 +25,7 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
     - One of the popular approaches for running an application is over a virtual machine (VM). VMs run applications inside a guest operating system, which runs on virtual hardware powered by the server’s host OS.
 
-    - ![Docker architecture](../_images/docker_docker-architecture.png  "Docker architecture")
+    - ![Docker architecture](_images/docker_docker-architecture.png  "Docker architecture")
 
     - Containers have a different approach to running applications. Containers do not include an operating system. Containers package the application binaries, utilize a host’s operating system, and share relevant libraries and resources as necessary to run applications.
 
