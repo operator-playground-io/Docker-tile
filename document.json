@@ -1,0 +1,36 @@
+{
+    "name": "Docker",
+    "description": "Docker",
+    "logo": "_images/SalesStack.png",
+    "has_supporting_content": true,
+    "stack_id": "docker-course",
+    "type": "Course",
+    "categories": [
+        "Containerization"
+    ],
+    "platform": "Docker",
+    "cover": "cover.md",
+    "meta": {
+        "Type": [
+            "Course"
+        ],
+        "Install time": [
+            ""
+        ],
+        "Course time": [
+            "30 minutes"
+        ]
+    },
+    "deployment_information": {
+        "Project": "",
+        "Deployment Namespace": ""
+    },
+    "commands": [],
+    "display": [
+        {
+            "name": "Developer Dashboard",
+            "url": "##DNS.host##/codeserver",
+            "enabled": true
+        }
+    ]
+}
