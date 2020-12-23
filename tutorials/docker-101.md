@@ -186,7 +186,7 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 ---
 
-<span style="color:#F4F4F4">
+<span style="color:black">
   
 **List of instructions used in the Dockerfile**
 
