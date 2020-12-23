@@ -1,5 +1,5 @@
 {
-    "name": "Docker",
+    "name": "Learn Docker",
     "description": "Docker",
     "logo": "_images/SalesStack.png",
     "has_supporting_content": true,
@@ -14,9 +14,7 @@
         "Type": [
             "Course"
         ],
-        "Install time": [
-            ""
-        ],
+        
         "Course time": [
             "30 minutes"
         ]
