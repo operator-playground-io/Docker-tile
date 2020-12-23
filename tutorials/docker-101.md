@@ -21,18 +21,18 @@ description: Docker
  
 Container refers to a lightweight, stand-alone, executable package of a piece of software that contains all the libraries, configuration files, dependencies, and other necessary parts to operate the application.
 ****
-- **Difference between Docker and Virtual Machine**
+**Difference between Docker and Virtual Machine**
 
-    - One of the popular approaches for running an application is over a virtual machine (VM). VMs run applications inside a guest operating system, which runs on virtual hardware powered by the server’s host OS.
+- One of the popular approaches for running an application is over a virtual machine (VM). VMs run applications inside a guest operating system, which runs on virtual hardware powered by the server’s host OS.
 
-    - ![Docker architecture](_images/docker_docker-architecture.png  "Docker architecture")
+    ![Docker architecture](_images/docker_docker-architecture.png  "Docker architecture")
 
-    - Containers have a different approach to running applications. Containers do not include an operating system. Containers package the application binaries, utilize a host’s operating system, and share relevant libraries and resources as necessary to run applications.
+- Containers have a different approach to running applications. Containers do not include an operating system. Containers package the application binaries, utilize a host’s operating system, and share relevant libraries and resources as necessary to run applications.
 
-    -  Table: Docker Vs Virtual Machines*
+-  Table: Docker Vs Virtual Machines*
 
 
-   - ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
+    ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
 
 ****
 
@@ -52,10 +52,9 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
     - Less code to transfer, migrate, and upload workloads
 
 
+Unlike virtual machines, containers do not have high overhead and hence enable more efficient usage of the underlying system and resources.
 
-    Unlike virtual machines, containers do not have high overhead and hence enable more efficient usage of the underlying system and resources.
-
-    FThe isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
+FThe isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
 
 ****
 **Docker Architecture**
@@ -114,7 +113,7 @@ There are lots of container registries out there. They can be broken down into s
 - **Private registries:** Registries that require permissions in order to upload or download container images. You can create private registries using a service like Docker Hub, even though many Docker Hub registries are publicly accessible.
 
 ****
-** Commonly used registries:**
+**Commonly used registries:**
 
 - **Quay.io:**
 Red Hat® Quay container and application registry provides secure storage, distribution, and deployment of containers on any infrastructure. It is available as an add-on for OpenShift or as a standalone component.
