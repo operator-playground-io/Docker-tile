@@ -186,6 +186,8 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 ---
 
+<span style="color:#F4F4F4">
+  
 **List of instructions used in the Dockerfile**
 
 | **Command**   |	**Description** |
@@ -206,3 +208,5 @@ It starts from a previously existing Base image (through the FROM clause) follow
 | ARG	        | Defines a variable that users can pass at build-time to the builder using --build-arg |
 | ONBUILD	    | Adds an instruction to be executed later, when the image is used as the base for another build |
 | STOPSIGNAL    | 	Sets the system call signal that will be sent to the container to exit |
+
+</span>
