@@ -31,11 +31,8 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
     -  Table: Docker Vs Virtual Machines*
 
-  
 
-    - ![Docker vs VM](../_images/Docker-vs-VM.png  "Difference between Docker and VM")
-
-  
+   - ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
 
 ****
 
@@ -66,7 +63,7 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
 Docker consists of a Docker Engine, which is a client server application. It contains the following components:
 
-![Docker architecture](../_images/docker_architecture.png "Docker architecture")
+![Docker architecture](_images/docker_architecture.png "Docker architecture")
 
 - A server, which is a type of long-running program called a "daemon process". The daemon creates and manages Docker objects, such as images, containers, networks and volumes.
 
@@ -92,18 +89,18 @@ A ***Docker repository*** is where you can store 1 or more versions of a specifi
 ***Docker images*** are read-only templates that are used to create Docker containers. Docker enables you to create new images, update existing images, or download images that others created. Docker images are the build component of Docker.
 ****
 
-A ***Docker image*** can be compared to a git repo. A git repo can be hosted inside of a GitHub repository, but it could also be hosted on Gitlab, BitBucket or your own git repo hosting service. It could also sit on your development box and not be hosted anywhere.
+- A ***Docker image*** can be compared to a git repo. A git repo can be hosted inside of a GitHub repository, but it could also be hosted on Gitlab, BitBucket or your own git repo hosting service. It could also sit on your development box and not be hosted anywhere.
 
-The same goes for a Docker image. You can choose to not push it anywhere, but you could also push it to the Docker Hub which is both a public and private service for hosting Docker repositories. There are other third party repository hosting services too.
+- The same goes for a Docker image. You can choose to not push it anywhere, but you could also push it to the Docker Hub which is both a public and private service for hosting Docker repositories. There are other third party repository hosting services too.
 
-The thing to remember here is a Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
+- The thing to remember here is a Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
 
-It’s also worth pointing out that the Docker Hub and other third party repository hosting services are called “registries”. A registry stores a collection of repositories.
+- It’s also worth pointing out that the Docker Hub and other third party repository hosting services are called “registries”. A registry stores a collection of repositories.
 
-You could say a registry has many repositories and a repository has many different versions of the same image which are individually versioned with tags.
+- You could say a registry has many repositories and a repository has many different versions of the same image which are individually versioned with tags.
 ****
 
-#### Types of Container Registries
+ **Types of Container Registries**
 
 There are lots of container registries out there. They can be broken down into several distinct categories:
 
@@ -117,7 +114,7 @@ There are lots of container registries out there. They can be broken down into s
 - **Private registries:** Registries that require permissions in order to upload or download container images. You can create private registries using a service like Docker Hub, even though many Docker Hub registries are publicly accessible.
 
 ****
-#### Commonly used registries:
+** Commonly used registries:**
 
 - **Quay.io:**
 Red Hat® Quay container and application registry provides secure storage, distribution, and deployment of containers on any infrastructure. It is available as an add-on for OpenShift or as a standalone component.
