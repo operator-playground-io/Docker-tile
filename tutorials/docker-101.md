@@ -10,7 +10,7 @@ description: Docker
 ---
   
 
- What is Docker
+ **What is Docker**
  
   
 
@@ -90,7 +90,7 @@ The isolation and security aspects of Docker allow many containers to be run sim
 
   
 
-Docker Architecture
+**Docker Architecture**
 
   
 
