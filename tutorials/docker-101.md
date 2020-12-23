@@ -185,10 +185,10 @@ It starts from a previously existing Base image (through the FROM clause) follow
     “-bmanagement”, “0.0.0.0”]
 
 ---
-
-<span style="color:black">
   
 **List of instructions used in the Dockerfile**
+
+<span style="color:black">
 
 | **Command**   |	**Description** |
 | ------------- |   :-------------|
