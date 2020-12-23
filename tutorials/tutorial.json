@@ -3,36 +3,12 @@
     "appLayout":"accordion",
     "appTheme":"g90",
     "footer":"footer.md",
-    "tutorials":[
+    "tutorials":[      
        {
-          "description":"",
-          "duration":"",
-          "tutorial_name":"",
-          "title":""
-       },
-       {
-          "description":"",
-          "duration":"",
-          "tutorial_name":"",
-          "title":""
-       },
-       {
-          "description":"",
-          "duration":"",
-          "tutorial_name":"",
-          "title":""
-       },
-       {
-          "description":"",
-          "duration":"",
-          "tutorial_name":"",
-          "title":""
-       },
-       {
-          "description":"",
-          "duration":"",
-          "tutorial_name":"",
-          "title":""
+          "description":"Docker",
+          "duration":"30 min",
+          "tutorial_name":"docker-101.md",
+          "title":"Docker-101"
        }
     ],
     "usefulLinks":[
