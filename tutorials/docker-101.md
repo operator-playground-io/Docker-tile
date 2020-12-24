@@ -648,7 +648,7 @@ The output above shows that all the application files are located in the working
 
 We can run commands inside the container to verify that the Node server process is running.
 
-# Execute the following command to exit the container shell
+#Execute the following command to exit the container shell
 
     exit
 
