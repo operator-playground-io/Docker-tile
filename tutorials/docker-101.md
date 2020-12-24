@@ -904,3 +904,29 @@ The UBI ubi8-init images contains the systemd initialization system, making them
 **Note:** Because the <code>ubi8-init</code> image builds on top of the ubi8 image, their contents are mostly the same. There are a few critical differences, however. In <code>ubi8-init</code>, the Cmd is set to <code>/sbin/init</code>, instead of <code>bash</code>, to start the systemd Init service by default. It includes <code>ps</code> and process related commands (procps-ng package), which <code>ubi8</code> does not. Also, <code>ubi8-init</code> sets SIGRTMIN+3 as the StopSignal, as systemd in ubi8-init ignores normal signals to exit (SIGTERM and SIGKILL), but will terminate if it receives SIGRTMIN+3.
 
 Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
+
+
+---
+### What You Learned
+---
+
+**Summary**
+
+#
+
+**What you learned in this course**
+
+This course provided a refresher on Containers and how to create them using Docker, which includes:
+- What is Docker
+
+- What are Docker Images
+
+- Docker Repositories
+
+- What is a Dockerfile
+
+- How to create a Docker Container
+
+- Best practices while working with Containers
+
+![Docker summary](_images/docker-summary.png  "Docker summary")
