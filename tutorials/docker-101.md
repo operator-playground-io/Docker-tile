@@ -248,44 +248,43 @@ We will run through one Node.js example for our Docker demonstration. This is a 
 ***
 **Create an application**
 
-#
 The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
 
 
-#Execute the following command to navigate to your home directory
+* Execute the following command to navigate to your home directory
 
     cd $WORKING_DIR
 
-#Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
+* Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
 
     mkdir -p nodejsapp
 
-#Execute the following command to navigate inside the "nodejsapp" directory
+* Execute the following command to navigate inside the "nodejsapp" directory
 
     cd nodejsapp
 
-#Execute the following command to download the demo code .zip file from Git using the "curl" command
+* Execute the following command to download the demo code .zip file from Git using the "curl" command
 
     curl -OL https://raw.githubusercontent.com/snippet-java/ops/master/docker-demo/node-demo.zip
 
-#Execute the following command to unzip the node-demo.zip file
+* Execute the following command to unzip the node-demo.zip file
 
     unzip node-demo.zip
 
-#Execute the following command to navigate to the "node-demo" directory
+* Execute the following command to navigate to the "node-demo" directory
 
     cd node-demo
 In order to run a Node.js app, Node.js requires a package.json file that describes the app and its dependencies.
 
 Here is our package.json file, which lists the package "express" as a dependency:
 
-#Execute the following command to see the content of the package.json file
+* Execute the following command to see the content of the package.json file
 
     cat package.json
 
 The package.json file mentions a server.js file, which is the script file we need to spin up the REST app. Requesting this app will respond with "Hello world":
 
-#Execute the following command to see the content of the server.js file
+* Execute the following command to see the content of the server.js file
 
     cat server.js
 
