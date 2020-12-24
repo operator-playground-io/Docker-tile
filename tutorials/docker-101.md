@@ -211,84 +211,6 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 </span>
 
-
-### Containerization Best Practices
-
-**Use Red Hat Universal Base Images**
-
-**What are Red Hat base images?**
-
-Red Hat provides multiple base images that you can use as a starting point for your own images. These images are available through the Red Hat Registry (registry.access.redhat.com and registry.redhat.io) and described in the <a href="https://access.redhat.com/containers/?count=10#/category/Base%20Image"> Red Hat Container Catalog. </a>
-
-***Red Hat Enterprise Linux (RHEL)*** base images are meant to form the foundation for the container images you build.
-**Characteristics of RHEL base images include:**
-
-+ **Supported:** Supported by Red Hat for use with your containerized applications. Contains the same secured tested, and certified software packages you have in Red Hat Enterprise Linux. 
-+ **Cataloged:** Listed in the <a href="https://access.redhat.com/containers/"> Red Hat Container Catalog. </a>, where you can find descriptions, technical details, and a health index for each image.
-+ **Updated:** Offered with a well-defined update schedule, so you know you are getting the latest software (see <a href="https://access.redhat.com/articles/2208321">Red Hat Container Image Updates</a>).
-+ **Tracked:** Tracked by errata, to help you understand the changes that go into each update.
-+ **Reusable:** Only need to be downloaded and cached in your production environment once, where each base image can be reused by all containers that include it as their foundation.
---- 
-
-**RHEL 8:**
-
-For RHEL 8, all Red Hat base images are available as new ***Universal Base Images (UBI)***. These include versions of RHEL standard, minimal, init, and Red Hat Software Collections that are all now freely available and redistributable.
-
-Red Hat also provides a set of language runtime images, based on <a href="https://developers.redhat.com/blog/2018/11/15/rhel8-introducing-appstreams/">Application Streams</a>, that you can build on when you are creating containers for applications that require specific runtimes. Runtime images include python, php, ruby, nodejs, and others. All of the RHEL 8 images are UBI images, which means that you can freely obtain and redistribute them.
-
-***Red Hat Universal Base Images (UBI)*** for RHEL 8 provide the same quality RHEL software for building container images as their non-UBI predecessors (<code>rhel6, rhel7, rhel-init,</code> and <code>rhel-minimal</code> base images), but offer more freedom in how they are used and distributed.
-
----
-
-**Note:** For a list of available Red Hat UBI images, and associated information about UBI repositories and source code, see <a href="https://access.redhat.com/articles/4238681">Universal Base Images (UBI): Images, repositories, and packages.</a>
-
----
-
-**RHEL 7:**
-
-There is a set of RHEL 7 images as well that you can run on RHEL 8 systems. For RHEL 7, there are both UBI (redistributable) and non-UBI (require subscription access and are non-redistributable) base images. Those images include three regular base images (<code>rhel7, rhel-init</code>, and <code>rhel-minimal</code>) and three UBI images (ubi7, ubi7-init, and ubi7-minimal).
-
----
-
-**Using standard Red Hat base images**
-
-Standard RHEL 8 base images (<code>ubi8</code>) have a robust set of software features that include the following:
-
-+ **init system:** All the features of the systemd initialization system you need to manage systemd services are available in the standard base images. These init systems let you install RPM packages that are pre-configured to start up services automatically, such as a Web server (httpd) or FTP server (vsftpd).
-+ **yum:** Software needed to install software packages is included via the standard set of <code>yum</code> commands (<code>yum, yum-config-manager, yumdownloader</code>, and so on). For the UBI base images, you have access to free yum repositories for adding and updating software.
-+ **utilities:** The standard base image includes some useful utilities for working inside the container. Utilities that are in this base image that are not in the minimal images include <code>tar, dmidecode, gzip, getfacl</code> (and other acl commands), <code>dmsetup</code> (and other device mapper commands), and others.   
-
----
-
-**Using minimal Red Hat base images**
-
-The <code>ubi8-minimal</code> images are stripped-down RHEL images to use when a bare-bones base image in desired. If you are looking for the smallest possible base image to use as part of the larger Red Hat ecosystem, you can start with these minimal images.
-
-RHEL minimal images provide a base for your own container images that is less than half the size of the standard image, while still being able to draw on RHEL software repositories and maintain any compliance requirements your software has.
-
-Here are some features of the minimal base images:
-
-+ **Small size:** Minimal images are about 92M on disk and 32M compressed. This makes it less than half the size of the standard images.
-    Software installation (microdnf): Instead of including the full-blown yum facility for working with software repositories and RPM software packages, the minimal images includes the microdnf utility. Microdnf is a scaled-down version of dnf. It includes only what is needed to enable and disable repositories, as well as install, remove, and update packages. It also has a clean option, to clean out cache after packages have been installed.
-+ **Based on RHEL packaging:** Because minimal images incorporate regular RHEL software RPM packages, with a few features removed such as extra language files or documentation, you can continue to rely on RHEL repositories for building your images. This allows you to still maintain compliance requirements you have that are based on RHEL software. Features of minimal images make them perfect for trying out applications you want to run with RHEL, while carrying the smallest possible amount of overhead. What you don’t get with minimal images is an initialization and service management system (systemd or System V init), a Python run-time environment, and a bunch of common shell utilities.
-+ **Modules for <code>microdnf</code> are not supported:** Modules used with the <code>dnf</code> command let you install multiple versions of the same software, when available. The <code>microdnf</code> utility included with minimal images does not support modules. So if modules are required, you should use a non-minimal base images, which include yum.
-
-If your goal, however, is just to try to run some simple binaries or pre-packaged software that doesn’t have a lot of requirements from the operating system, the minimal images might suit your needs. If your application does have dependencies on other software from RHEL, you can simply use microdnf to install the needed packages at build time.
-
-Red Hat intends for you to always use the latest version of the minimal images, which is implied by simply requesting <code>ubi8/ubi-minimal</code> or <code>ubi8-minimal</code>. Red Hat does not expect to support older versions of minimal images going forward.
-
----
-
-**Using Init Red Hat base images**
-
-The UBI ubi8-init images contains the systemd initialization system, making them useful for building images in which you want to run systemd services, such as a web server or file server. The Init image contents are less than what you get with the standard images, but more than what is in the minimal images.
-
-**Note:** Because the <code>ubi8-init</code> image builds on top of the ubi8 image, their contents are mostly the same. There are a few critical differences, however. In <code>ubi8-init</code>, the Cmd is set to <code>/sbin/init</code>, instead of <code>bash</code>, to start the systemd Init service by default. It includes <code>ps</code> and process related commands (procps-ng package), which <code>ubi8</code> does not. Also, <code>ubi8-init</code> sets SIGRTMIN+3 as the StopSignal, as systemd in ubi8-init ignores normal signals to exit (SIGTERM and SIGKILL), but will terminate if it receives SIGRTMIN+3.
-
-Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
-
-
-
 ---
 ### How to create & manage a Container using Docker
 ---
@@ -908,3 +830,77 @@ As shown in the output below, the docker rmi command will untag the image, then 
 
 Images can also be removed using the image ID.
 
+### Containerization Best Practices
+
+**Use Red Hat Universal Base Images**
+
+**What are Red Hat base images?**
+
+Red Hat provides multiple base images that you can use as a starting point for your own images. These images are available through the Red Hat Registry (registry.access.redhat.com and registry.redhat.io) and described in the <a href="https://access.redhat.com/containers/?count=10#/category/Base%20Image"> Red Hat Container Catalog. </a>
+
+***Red Hat Enterprise Linux (RHEL)*** base images are meant to form the foundation for the container images you build.
+**Characteristics of RHEL base images include:**
+
++ **Supported:** Supported by Red Hat for use with your containerized applications. Contains the same secured tested, and certified software packages you have in Red Hat Enterprise Linux. 
++ **Cataloged:** Listed in the <a href="https://access.redhat.com/containers/"> Red Hat Container Catalog. </a>, where you can find descriptions, technical details, and a health index for each image.
++ **Updated:** Offered with a well-defined update schedule, so you know you are getting the latest software (see <a href="https://access.redhat.com/articles/2208321">Red Hat Container Image Updates</a>).
++ **Tracked:** Tracked by errata, to help you understand the changes that go into each update.
++ **Reusable:** Only need to be downloaded and cached in your production environment once, where each base image can be reused by all containers that include it as their foundation.
+--- 
+
+**RHEL 8:**
+
+For RHEL 8, all Red Hat base images are available as new ***Universal Base Images (UBI)***. These include versions of RHEL standard, minimal, init, and Red Hat Software Collections that are all now freely available and redistributable.
+
+Red Hat also provides a set of language runtime images, based on <a href="https://developers.redhat.com/blog/2018/11/15/rhel8-introducing-appstreams/">Application Streams</a>, that you can build on when you are creating containers for applications that require specific runtimes. Runtime images include python, php, ruby, nodejs, and others. All of the RHEL 8 images are UBI images, which means that you can freely obtain and redistribute them.
+
+***Red Hat Universal Base Images (UBI)*** for RHEL 8 provide the same quality RHEL software for building container images as their non-UBI predecessors (<code>rhel6, rhel7, rhel-init,</code> and <code>rhel-minimal</code> base images), but offer more freedom in how they are used and distributed.
+
+---
+
+**Note:** For a list of available Red Hat UBI images, and associated information about UBI repositories and source code, see <a href="https://access.redhat.com/articles/4238681">Universal Base Images (UBI): Images, repositories, and packages.</a>
+
+---
+
+**RHEL 7:**
+
+There is a set of RHEL 7 images as well that you can run on RHEL 8 systems. For RHEL 7, there are both UBI (redistributable) and non-UBI (require subscription access and are non-redistributable) base images. Those images include three regular base images (<code>rhel7, rhel-init</code>, and <code>rhel-minimal</code>) and three UBI images (ubi7, ubi7-init, and ubi7-minimal).
+
+---
+
+**Using standard Red Hat base images**
+
+Standard RHEL 8 base images (<code>ubi8</code>) have a robust set of software features that include the following:
+
++ **init system:** All the features of the systemd initialization system you need to manage systemd services are available in the standard base images. These init systems let you install RPM packages that are pre-configured to start up services automatically, such as a Web server (httpd) or FTP server (vsftpd).
++ **yum:** Software needed to install software packages is included via the standard set of <code>yum</code> commands (<code>yum, yum-config-manager, yumdownloader</code>, and so on). For the UBI base images, you have access to free yum repositories for adding and updating software.
++ **utilities:** The standard base image includes some useful utilities for working inside the container. Utilities that are in this base image that are not in the minimal images include <code>tar, dmidecode, gzip, getfacl</code> (and other acl commands), <code>dmsetup</code> (and other device mapper commands), and others.   
+
+---
+
+**Using minimal Red Hat base images**
+
+The <code>ubi8-minimal</code> images are stripped-down RHEL images to use when a bare-bones base image in desired. If you are looking for the smallest possible base image to use as part of the larger Red Hat ecosystem, you can start with these minimal images.
+
+RHEL minimal images provide a base for your own container images that is less than half the size of the standard image, while still being able to draw on RHEL software repositories and maintain any compliance requirements your software has.
+
+Here are some features of the minimal base images:
+
++ **Small size:** Minimal images are about 92M on disk and 32M compressed. This makes it less than half the size of the standard images.
+    Software installation (microdnf): Instead of including the full-blown yum facility for working with software repositories and RPM software packages, the minimal images includes the microdnf utility. Microdnf is a scaled-down version of dnf. It includes only what is needed to enable and disable repositories, as well as install, remove, and update packages. It also has a clean option, to clean out cache after packages have been installed.
++ **Based on RHEL packaging:** Because minimal images incorporate regular RHEL software RPM packages, with a few features removed such as extra language files or documentation, you can continue to rely on RHEL repositories for building your images. This allows you to still maintain compliance requirements you have that are based on RHEL software. Features of minimal images make them perfect for trying out applications you want to run with RHEL, while carrying the smallest possible amount of overhead. What you don’t get with minimal images is an initialization and service management system (systemd or System V init), a Python run-time environment, and a bunch of common shell utilities.
++ **Modules for <code>microdnf</code> are not supported:** Modules used with the <code>dnf</code> command let you install multiple versions of the same software, when available. The <code>microdnf</code> utility included with minimal images does not support modules. So if modules are required, you should use a non-minimal base images, which include yum.
+
+If your goal, however, is just to try to run some simple binaries or pre-packaged software that doesn’t have a lot of requirements from the operating system, the minimal images might suit your needs. If your application does have dependencies on other software from RHEL, you can simply use microdnf to install the needed packages at build time.
+
+Red Hat intends for you to always use the latest version of the minimal images, which is implied by simply requesting <code>ubi8/ubi-minimal</code> or <code>ubi8-minimal</code>. Red Hat does not expect to support older versions of minimal images going forward.
+
+---
+
+**Using Init Red Hat base images**
+
+The UBI ubi8-init images contains the systemd initialization system, making them useful for building images in which you want to run systemd services, such as a web server or file server. The Init image contents are less than what you get with the standard images, but more than what is in the minimal images.
+
+**Note:** Because the <code>ubi8-init</code> image builds on top of the ubi8 image, their contents are mostly the same. There are a few critical differences, however. In <code>ubi8-init</code>, the Cmd is set to <code>/sbin/init</code>, instead of <code>bash</code>, to start the systemd Init service by default. It includes <code>ps</code> and process related commands (procps-ng package), which <code>ubi8</code> does not. Also, <code>ubi8-init</code> sets SIGRTMIN+3 as the StopSignal, as systemd in ubi8-init ignores normal signals to exit (SIGTERM and SIGKILL), but will terminate if it receives SIGRTMIN+3.
+
+Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
