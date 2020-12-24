@@ -287,3 +287,624 @@ The UBI ubi8-init images contains the systemd initialization system, making them
 
 Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
 
+
+
+---
+### How to create & manage a Container using Docker
+---
+
+**Lab- Create an application**
+****
+In this section, we will explore what is required to run an application on the Docker host. We will accomplish this by following the steps below:
+
+- **Create an application**
+
+- **Create a Dockerfile**
+
+- **Build an image from a Dockerfile for an application**
+
+- **Create a container**
+
+- **Access the application**
+
+- **Manage containers**
+
+- **Update the application code**
+
+- **Update the Dockerfile to use ENV variables**
+
+- **Recreate the image from the Dockerfile**
+
+- **Create a container**
+
+- **Test the container**
+
+- **Delete images**
+
+We will run through one Node.js example for our Docker demonstration. This is a "Hello world" Node.js setup, which we will be running with our Docker setup. We will also cover various related concepts during the demonstration.
+
+***
+**Create an application**
+
+#
+The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
+
+
+#Execute the following command to navigate to your home directory
+
+    cd $WORKING_DIR
+
+#Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
+
+    mkdir -p nodejsapp
+
+#Execute the following command to navigate inside the "nodejsapp" directory
+
+    cd nodejsapp
+
+#Execute the following command to download the demo code .zip file from Git using the "curl" command
+
+    curl -OL https://raw.githubusercontent.com/snippet-java/ops/master/docker-demo/node-demo.zip
+
+#Execute the following command to unzip the node-demo.zip file
+
+    unzip node-demo.zip
+
+#Execute the following command to navigate to the "node-demo" directory
+
+    cd node-demo
+In order to run a Node.js app, Node.js requires a package.json file that describes the app and its dependencies.
+
+Here is our package.json file, which lists the package "express" as a dependency:
+
+#Execute the following command to see the content of the package.json file
+
+    cat package.json
+
+The package.json file mentions a server.js file, which is the script file we need to spin up the REST app. Requesting this app will respond with "Hello world":
+
+#Execute the following command to see the content of the server.js file
+
+    cat server.js
+
+
+****
+**Lab- Build Container Image**
+****
+  
+
+**Create a Dockerfile**
+#
+Before we actually create a Dockerfile, let’s take a closer look at some Docker terminology.
+
+The steps required to pack the application artifacts are listed with simple syntax in a file known as a "Dockerfile". In addition to artifacts, this file can also contain information such as how to start an application, or specify on which port the application will be listening:
+
+
+#Execute the following command to ensure that you are in correct directory
+
+    cd $WORKING_DIR/nodejsapp/node-demo
+
+#Execute the following command to see the contents of the Dockerfile
+
+    cat Dockerfile
+
+Let’s discuss the contents of the Dockerfile.
+
+**FROM registry.access.redhat.com/ubi7/ubi:latest** - Our application is Node.js, and a Node environment is required to run it. The "FROM registry.access.redhat.com/ubi7/ubi:latest" syntax will pull that base Docker image from a repository. We are installing Nodejs on top of the base image.
+
+This also suggests that our application image will be based on another image, which in turn provides the Node environment for us.
+
+**WORKDIR** - Creates an app directory in which to place all of the application artifacts inside a container. We will discuss containers shortly. This is the working directory.
+
+**COPY** - Copies the files from the local directory we are using into the directory specified by our WORKDIR command.
+
+**RUN npm install** - Installs all the libraries needed to run our Node.js application.
+
+**EXPOSE 8080** - Exposes the port to communicate with the container.
+
+**CMD [“npm”,”start”]** - Starts the application.
+
+
+
+#
+**Build an image from a Dockerfile for an application**
+#
+
+Let’s create an image from our Dockerfile, which will make an image of the Node.js application.
+
+The `docker build -t [username/]<image-name>[:tag] <dockerfile-path>` command is used to build a Docker image. It begins with a previously existing base image (referenced with the FROM clause) and is followed by any other necessary Dockerfile instructions.
+
+This process is very similar to the compilation of source code into binary output; however, in this case, the output of the Dockerfile will be a container image.
+
+#Execute the following command (from the directory containing the Dockerfile) to build an image from the Dockerfile created in the previous section
+
+    docker build -t myrepo/node-web-app:v1.0 .
+
+The -t option is used in the command above to tag the image. Tags are helpful for finding images via tag name. It is customary to tag images as `[username/]<image-name>[:tag]`.
+
+If a tag is not mentioned with the -t option, then it is assigned the default "latest".
+
+As the build progresses, Docker will print:
+
+>Sending build context to Docker daemon  18.94kB
+Step 1/10 : FROM registry.access.redhat.com/ubi7/ubi:latest
+latest: Pulling from ubi7/ubi
+a3ac36470b00: Pull complete 
+82a8f4ea76cb: Pull complete 
+Digest: sha256:a8884b9b7039bae8a11e13b80c905bc7448aa654b9cbf7c7e1ea7763bf730769
+Status: Downloaded newer image for registry.access.redhat.com/ubi7/ubi:latest
+ ---> d36cb7ab6004
+Step 2/10 : LABEL name="APPLICATION NAME"       maintainer="EMAIL@ADDRESS.COM"       vendor="COMPANY NAME"       version="VERSION NUMBER"       release="RELEASE NUMBER"       summary="APPLICATION SUMMARY"       description="APPLICATION DESCRIPTION"
+ ---> Running in 53f0202cba38
+Removing intermediate container 53f0202cba38
+ ---> 717ecd094055
+Step 3/10 : COPY licenses /licenses
+ ---> 994e5a216a4f
+Step 4/10 : WORKDIR /usr/src/app
+ ---> Running in d54bfe95bbb3
+Removing intermediate container d54bfe95bbb3
+ ---> dbff382e18cc
+Step 5/10 : COPY package*.json ./
+Step 6/10 : RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash - &&     INSTALL_PKGS="nodejs gcc-c++ make" &&     yum -y update-minimal --enablerepo ubi-7 --setopt=tsflags=nodocs     --security --sec-severity=Important --sec-severity=Critical &&         yum -y install --setopt=tsflags=nodocs ${INSTALL_PKGS}
+ ---> Running in c8320daacb29
+>
+>##Installing the NodeSource Node.js 14.x repo...
+Complete!
+>
+>Removing intermediate container c8320daacb29
+ ---> 0b8843b27e14
+Step 7/10 : RUN npm install
+ ---> Running in 49bc7b5883c0
+>
+>added 50 packages from 37 contributors and audited 50 packages in 1.943s
+found 0 vulnerabilities
+>
+>Removing intermediate container 49bc7b5883c0
+ ---> daf8fc6802aa
+Step 8/10 : COPY . .
+ ---> f1ab603926d2
+Step 9/10 : EXPOSE 8080
+ ---> Running in 6b606e4470d3
+Removing intermediate container 6b606e4470d3
+ ---> 7eb4c4ff0fe6
+Step 10/10 : CMD [ "npm", "start" ]
+ ---> Running in da99aaa322a1
+Removing intermediate container da99aaa322a1
+ ---> f2aef4b568ec
+Successfully built f2aef4b568ec
+Successfully tagged myrepo/node-web-app:v1.0
+
+#Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.0" image is listed
+
+    docker images | grep myrepo/node-web-app
+
+> REPOSITORY              TAG            IMAGE ID            CREATED             SIZE
+>
+> myrepo/node-web-app     v1.0           d4c361929838        14 minutes ago      909 MB
+
+
+<br/>
+
+****
+**Lab- Application Container Lifecycle**
+****
+
+**Create a container**
+#
+
+As we've already discussed, a container is a runnable instance of an image. Let’s create a container out of the image "myrepo/node-web-app:1.0".
+
+
+The docker run command can be used to create and run a container.
+
+#Execute the following command to run the container from the image "myrepo/node-web-app" and name the container "node_web_app"
+
+    docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.0
+
+Our Dockerfile exposes port 8080, the port on which the application listens. But this is a private port and can’t be accessed externally.
+
+The -p flag redirects a public port to a private port inside the container. The docker run command maps 49160 to port 8080 of the container. A request to 49160 will be routed to port 8080 on the container.
+
+The -d flag runs the container in detached mode, leaving the container running in the background.
+
+After executing the docker run command, a unique container ID will be displayed as follows:
+
+> 543c207113d6ba6b207bc5e817c7b91d55a1f0098fbf3f2e6a8e3cce90727e73
+
+<br/>
+
+**Listing containers**
+#
+
+We can generate a list of containers, just as we could with images:
+
+ #Execute the following command to list your running containers
+
+    docker ps | grep node_web_app
+
+#The following command will list all containers, irrespective of status (e.g., running, stopped, or exited)
+
+    docker ps -a
+
+<br/>
+
+**Accessing the application**
+#
+
+The container that hosts our Node.js application is now running.
+
+Let’s try to access it:
+
+#Execute the following command to access the container app
+
+    curl -i localhost:49160
+It prints the response of the Node.js application, as below:
+
+> HTTP/1.1 200 OK
+> X-Powered-By: Express
+> Content-Type: text/html; charset=utf-8
+> Content-Length: 12
+> ETag: W/"c-M6tWOb/Y57lesdjQuHeB1P/qTV0"
+> Date: Wed, 19 Jun 2019 08:42:04 GMT
+> Connection: keep-alive
+>
+> Hello world
+
+<br/>
+
+**Manage containers**
+#
+
+Let’s check out the various operations we can perform with containers.
+
+**View inside container**
+
+Just as we can navigate within a virtual machine's directory, we can also navigate within a container. There is a Docker command that allows us to navigate inside a container and view its contents, as if we were using a physical machine:
+
+#Execute the following command to store the container ID in a variable
+
+    container_id=$(docker ps | grep "myrepo/node-web-app:v1.0" | awk '{print $1}')
+
+#Execute the following command to connect to the container
+
+    docker exec -it $container_id /bin/bash
+Once you connect to the container, execute the following command to see the working directory:
+
+    pwd
+You will see the following response:
+
+> /usr/src/app
+
+#Execute the following command to list the files inside the working directory
+
+    ls
+
+You will see the following response:
+
+> Dockerfile     licenses       package.json       server_v2.js
+> Dockerfile_v2  node_modules   package-lock.json  server.js
+
+The output above shows that all the application files are located in the working directory (/usr/src/app) that was set as the value for WORKDIR in the Dockerfile.
+
+We can run commands inside the container to verify that the Node server process is running.
+
+#Execute the following command to exit the container shell
+
+    exit
+
+**Stop or start the container**
+
+Containers can be stopped and started, just like applications.
+
+The docker stop command stops the container:
+
+#Execute the following command to stop the "node_web_app" container
+
+    docker stop node_web_app
+
+The docker start command starts the container.
+
+#Execute the following command to start the "node_web_app container" after it has been stopped
+
+    docker start node_web_app
+
+The docker stop and docker start commands operate with both the container name and the container ID. The container ID can be obtained by listing the containers.
+
+**Remove container**
+
+The docker rm command removes the container (the container must be stopped before it can be removed):
+
+#Execute the following command to stop the "node_web_app" container
+
+    docker stop node_web_app
+#Execute the following command to remove the stopped container
+
+    docker rm node_web_app   
+
+<br/>
+
+****
+**Lab- Build Container Image**
+****
+
+**Create a container**
+#
+
+As we've already discussed, a container is a runnable instance of an image. Let’s create a container out of the image "myrepo/node-web-app:1.0".
+
+The docker run command can be used to create and run a container.
+
+#Execute the following command to run the container from the image "myrepo/node-web-app" and name the container "node_web_app"
+
+    docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.0
+
+Our Dockerfile exposes port 8080, the port on which the application listens. But this is a private port and can’t be accessed externally.
+
+The -p flag redirects a public port to a private port inside the container. The docker run command maps 49160 to port 8080 of the container. A request to 49160 will be routed to port 8080 on the container.
+
+The -d flag runs the container in detached mode, leaving the container running in the background.
+
+After executing the docker run command, a unique container ID will be displayed as follows:
+
+> 543c207113d6ba6b207bc5e817c7b91d55a1f0098fbf3f2e6a8e3cce90727e73
+
+<br/>
+
+**Listing containers**
+#
+
+We can generate a list of containers, just as we could with images:
+
+#Execute the following command to list your running containers
+
+    docker ps | grep node_web_app
+#The following command will list all containers, irrespective of status (e.g., running, stopped, or exited)
+
+    docker ps -a
+
+
+<br/>
+
+**Accessing the application**
+#
+
+The container that hosts our Node.js application is now running.
+
+Let’s try to access it:
+
+#Execute the following command to access the container app
+
+    curl -i localhost:49160
+
+It prints the response of the Node.js application, as below:
+
+> HTTP/1.1 200 OK
+> X-Powered-By: Express
+> Content-Type: text/html; charset=utf-8
+> Content-Length: 12
+> ETag: W/"c-M6tWOb/Y57lesdjQuHeB1P/qTV0"
+> Date: Wed, 19 Jun 2019 08:42:04 GMT
+> Connection: keep-alive
+>
+> Hello world
+
+<br/>
+
+**Manage containers**
+#
+
+Let’s check out the various operations we can perform with containers.
+
+View inside container
+Just as we can navigate within a virtual machine's directory, we can also navigate within a container. There is a Docker command that allows us to navigate inside a container and view its contents, as if we were using a physical machine:
+
+#Execute the following command to store the container ID in a variable
+
+    container_id=$(docker ps | grep "myrepo/node-web-app:v1.0" | awk '{print $1}')
+#Execute the following command to connect to the container
+
+    docker exec -it $container_id /bin/bash
+
+Once you connect to the container, execute the following command to see the working directory:
+
+    pwd
+
+You will see the following response:
+
+> /usr/src/app
+
+#Execute the following command to list the files inside the working directory
+
+ls
+You will see the following response:
+
+> Dockerfile     licenses       package.json       server_v2.js
+> Dockerfile_v2  node_modules   package-lock.json  server.js
+
+The output above shows that all the application files are located in the working directory (/usr/src/app) that was set as the value for WORKDIR in the Dockerfile.
+
+
+We can run commands inside the container to verify that the Node server process is running.
+
+# Execute the following command to exit the container shell
+
+    exit
+
+**Stop or start the container**
+
+Containers can be stopped and started, just like applications.
+
+The docker stop command stops the container:
+
+#Execute the following command to stop the "node_web_app" container
+
+    docker stop node_web_app
+
+The docker start command starts the container.
+
+#Execute the following command to start the "node_web_app container" after it has been stopped
+
+    docker start node_web_app
+
+The docker stop and docker start commands operate with both the container name and the container ID. The container ID can be obtained by listing the containers.
+
+**Remove container**
+
+The docker rm command removes the container (the container must be stopped before it can be removed):
+
+#Execute the following command to stop the "node_web_app" container
+
+    docker stop node_web_app
+#Execute the following command to remove the stopped container
+
+    docker rm node_web_app
+
+
+<br/>
+
+****
+**Lab- Updating an Existing Application Container**
+****
+
+**Update the Dockerfile to use ENV variables**
+#
+
+We have hardcoded port 8080 in the Dockerfile and the server.js file. Instead of hardcoding the port, we can use an ENV variable to hold its value and then access its value via variable.
+
+#Execute the following command to ensure that you are in correct directory
+
+    cd $WORKING_DIR/nodejsapp/node-demo
+
+
+Let's use the Dockerfile with ENV variable. Execute below command to use updated Dockerfile:
+
+    mv Dockerfile_v2 Dockerfile
+
+#Execute the following command to see the contents of the updated Dockerfile
+
+    cat Dockerfile
+
+We added the ENV variable to hold the value "8080" and updated the EXPOSE command to use this ENV variable.
+
+Logging is available at the container level. Let’s update our application to include some logging statements.
+
+Please ensure you remove the container and image we created in the previous exercise. Use the instructions detailed above to remove our application container and application image.
+
+
+<br/>
+
+**Update the application code to use ENV variables and loggers**
+#
+
+Let’s alter the server.js file to use the ENV variable value and a few logger statements. Execute below command to use updated server.js file:
+
+    mv server_v2.js server.js
+
+#Execute the following command to see the contents of the updated server.js file
+
+    cat server.js
+
+<br/>
+
+**Recreate the image from the Dockerfile**
+#
+
+#Execute the following command (from the directory containing the Dockerfile) to build the image again
+
+    docker build -t myrepo/node-web-app:v1.1 .
+
+In the command above, we set the version of the image to "1.1".
+
+#Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.1" image is listed
+
+    docker images | grep myrepo/node-web-app
+
+<br/>
+
+**Create a container**
+#
+
+#Execute the following command to run the container from the image "myrepo/node-web-app:v1.1" with a user-provided name
+
+docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.1
+
+#Execute the following command to list the containers
+
+    docker ps | grep node_web_app
+
+
+#Execute the following command to view the logs
+
+    docker logs node_web_app
+
+The docker logs command shows the output of the npm start command, as below, since this is the command we execute when starting a container:
+
+> docker_web_app@1.0.0 start /usr/src/app
+> node server.js
+>
+> Starting app
+> Constructing response
+> Running on http://0.0.0.0:8080
+
+
+<br/>
+
+****
+**Lab- Application Container Lifecycle**
+****
+
+**Test the container**
+
+#Execute the following command to access the container app
+
+    curl -i localhost:49160
+You will see the output of the curl command, as below (note the difference in the "Hello world" statement):
+
+> HTTP/1.1 200 OK
+> X-Powered-By: Express
+> Content-Type: text/html; charset=utf-8
+> Content-Length: 23
+> ETag: W/"17-HtEjRtPNxxTwRiO506FUqUtwFSI"
+> Date: Wed, 19 Jun 2019 09:30:39 GMT
+> Connection: keep-alive
+>
+> Hello world once again
+
+
+**Remove the image
+**
+#
+
+The docker rmi command is used to remove an image.
+
+Please ensure you have stopped and removed the container before you remove the image.
+
+#Execute the following command to stop the "node_web_app" container
+
+    docker stop node_web_app
+#Execute the following command to remove the "node_web_app" container
+
+    docker rm node_web_app
+#Execute the following command to remove the image "myrepo/node-web-app"
+
+    docker rmi myrepo/node-web-app:v1.1
+As shown in the output below, the docker rmi command will untag the image, then delete the image from the server:
+
+> Untagged: myrepo/node-web-app:v1.1
+>
+> Deleted: sha256:f95433cfe06dfbda9bf6491ccda4eafb32795a561512bebcef026a294ed5504f
+>
+> Deleted: sha256:049817d2ca5f62976a8d5df074c1339e29b5abe6a927fabc5eea0aff78feeee9
+>
+> Deleted: sha256:69159c6db26cdedafb656c722878f102b3d03dc64d212e6a8e84cd55f4ff20da
+>
+> Deleted: sha256:7cb87f91a35bfc59662f07afb334f6fb4ad7754fb8cada4d09f47cc64f97ef8b
+>
+> Deleted: sha256:bce2333ed3125665ef5a562bffcb47e6391af21dca14b642cf583ee2b96a746f
+>
+> Deleted: sha256:cdad01f16f90f864cd8e7c339742b016631df1371d89aa85b0596539d094e0c3
+>
+> Deleted: sha256:4e12909bcb47659749d8b35e6dfe612537e93c216f858db390194647b9f91b88
+
+Images can also be removed using the image ID.
+
