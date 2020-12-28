@@ -15,10 +15,14 @@ description: Docker
 ### Exploring Docker
 
 
-**What is Docker**
+
+<p style="font-weight: bold; text-align: center">What is Docker</p>
+
 #
  Docker is a software development tool and a virtualization technology that makes it easy to develop, deploy, and manage applications by using containers.
- 
+
+
+
 Container refers to a lightweight, stand-alone, executable package of a piece of software that contains all the libraries, configuration files, dependencies, and other necessary parts to operate the application.
 
 **Difference between Docker and Virtual Machine**
@@ -33,9 +37,6 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
     ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
 
-#
-
-  
 
 **Why Containers ?**
 
@@ -55,8 +56,10 @@ Unlike virtual machines, containers do not have high overhead and hence enable m
 
 The isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
 
+#
 
-**Docker Architecture**
+<p style="font-weight: bold; text-align: center">Docker Architecture</p>
+
 #
 
 Docker consists of a Docker Engine, which is a client server application. It contains the following components:
@@ -79,8 +82,10 @@ Now let's understand container and Images briefly:
 
 - A “container image” is a template for the execution of a container — It means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
 
+#
+ <!-- ***Docker repository*** -->
+<p style="font-weight: bold; text-align: center">Docker repository</p>
 
- ***Docker repository***
 #
 A ***Docker repository*** is where you can store 1 or more versions of a specific Docker image. An image can have 1 or more versions (tags).
 
@@ -96,7 +101,7 @@ A ***Docker repository*** is where you can store 1 or more versions of a specifi
 - It’s also worth pointing out that the Docker Hub and other third party repository hosting services are called “registries”. A registry stores a collection of repositories.
 
 - You could say a registry has many repositories and a repository has many different versions of the same image which are individually versioned with tags.
-#
+
 
  **Types of Container Registries**
 
@@ -123,8 +128,11 @@ Docker Hub is the world’s largest repository of container images with an array
 - **Redhat Catalog:**
 Mission-critical applications require trusted containers. Container images available from the Red Hat Ecosystem Catalog are built from base images that have been vetted by Red Hat’s internal security team and hardened against security flaws. Use the Red Hat Container Catalog (RHCC) to find container images that have been tested, secured, and verified by Red Hat.
 
+#
 
-**Docker Base Images**
+<!-- **Docker Base Images** -->
+<p style="font-weight: bold; text-align: center">Docker Base Images</p>
+
 #
 
 A ****base image**** is the image that is used to create all of your container images. 
@@ -143,7 +151,7 @@ The Docker Official Images are a curated set of Docker repositories hosted on Do
 
 Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all content in the Official Images. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community.
 
-#
+
 ***In the upcoming section "Use Red Hat Universal Base Images" , you will learn about different Red Hat based rhel/ubi base images and advantages of using them to create your application containers.***
 
 
@@ -184,7 +192,7 @@ It starts from a previously existing Base image (through the FROM clause) follow
     CMD [“/opt/jboss/wildfly/bin/standalong.sh”, “-b”, “0.0.0.0”,
     “-bmanagement”, “0.0.0.0”]
 
-#
+
   
 **List of instructions used in the Dockerfile**
 
@@ -244,7 +252,7 @@ In this section, we will explore what is required to run an application on the D
 
 We will run through one Node.js example for our Docker demonstration. This is a "Hello world" Node.js setup, which we will be running with our Docker setup. We will also cover various related concepts during the demonstration.
 
-#
+
 **Create an application**
 
 The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
@@ -287,14 +295,14 @@ The package.json file mentions a server.js file, which is the script file we nee
 
     cat server.js
 
-
+#
 
 **Lab- Build Container Image**
 
-  
+#
 
 **Create a Dockerfile**
-#
+
 Before we actually create a Dockerfile, let’s take a closer look at some Docker terminology.
 
 The steps required to pack the application artifacts are listed with simple syntax in a file known as a "Dockerfile". In addition to artifacts, this file can also contain information such as how to start an application, or specify on which port the application will be listening:
@@ -326,9 +334,9 @@ This also suggests that our application image will be based on another image, wh
 
 
 
-#
+\
 **Build an image from a Dockerfile for an application**
-#
+
 
 Let’s create an image from our Dockerfile, which will make an image of the Node.js application.
 
@@ -405,12 +413,12 @@ Successfully tagged myrepo/node-web-app:v1.0
 
 <br/>
 
+#
 
 **Lab- Application Container Lifecycle**
-
-
-**Create a container**
 #
+**Create a container**
+
 
 As we've already discussed, a container is a runnable instance of an image. Let’s create a container out of the image "myrepo/node-web-app:1.0".
 
@@ -434,7 +442,7 @@ After executing the docker run command, a unique container ID will be displayed 
 <br/>
 
 **Listing containers**
-#
+
 
 We can generate a list of containers, just as we could with images:
 
@@ -449,7 +457,7 @@ We can generate a list of containers, just as we could with images:
 <br/>
 
 **Accessing the application**
-#
+
 
 The container that hosts our Node.js application is now running.
 
@@ -473,7 +481,7 @@ It prints the response of the Node.js application, as below:
 <br/>
 
 **Manage containers**
-#
+
 
 Let’s check out the various operations we can perform with containers.
 
@@ -543,12 +551,12 @@ The docker rm command removes the container (the container must be stopped befor
 
 <br/>
 
-
+#
 **Lab- Build Container Image**
-
+#
 
 **Create a container**
-#
+
 
 As we've already discussed, a container is a runnable instance of an image. Let’s create a container out of the image "myrepo/node-web-app:1.0".
 
@@ -571,7 +579,7 @@ After executing the docker run command, a unique container ID will be displayed 
 <br/>
 
 **Listing containers**
-#
+
 
 We can generate a list of containers, just as we could with images:
 
@@ -586,7 +594,7 @@ We can generate a list of containers, just as we could with images:
 <br/>
 
 **Accessing the application**
-#
+
 
 The container that hosts our Node.js application is now running.
 
@@ -611,7 +619,7 @@ It prints the response of the Node.js application, as below:
 <br/>
 
 **Manage containers**
-#
+
 
 Let’s check out the various operations we can perform with containers.
 
@@ -682,12 +690,12 @@ The docker rm command removes the container (the container must be stopped befor
 
 <br/>
 
-
+#
 **Lab- Updating an Existing Application Container**
-
+#
 
 **Update the Dockerfile to use ENV variables**
-#
+
 
 We have hardcoded port 8080 in the Dockerfile and the server.js file. Instead of hardcoding the port, we can use an ENV variable to hold its value and then access its value via variable.
 
@@ -714,7 +722,7 @@ Please ensure you remove the container and image we created in the previous exer
 <br/>
 
 **Update the application code to use ENV variables and loggers**
-#
+
 
 Let’s alter the server.js file to use the ENV variable value and a few logger statements. Execute below command to use updated server.js file:
 
@@ -727,7 +735,7 @@ Let’s alter the server.js file to use the ENV variable value and a few logger 
 <br/>
 
 **Recreate the image from the Dockerfile**
-#
+
 
 - #Execute the following command (from the directory containing the Dockerfile) to build the image again
 
@@ -742,7 +750,7 @@ In the command above, we set the version of the image to "1.1".
 <br/>
 
 **Create a container**
-#
+
 
 - #Execute the following command to run the container from the image "myrepo/node-web-app:v1.1" with a user-provided name
 
@@ -790,10 +798,10 @@ You will see the output of the curl command, as below (note the difference in th
 >
 > Hello world once again
 
+<br/>
 
-**Remove the image
-**
-#
+**Remove the image**
+
 
 The docker rmi command is used to remove an image.
 
@@ -831,7 +839,7 @@ Images can also be removed using the image ID.
 ### Containerization Best Practices
 
 **Use Red Hat Universal Base Images**
-
+#
 **What are Red Hat base images?**
 
 Red Hat provides multiple base images that you can use as a starting point for your own images. These images are available through the Red Hat Registry (registry.access.redhat.com and registry.redhat.io) and described in the <a href="https://access.redhat.com/containers/?count=10#/category/Base%20Image"> Red Hat Container Catalog. </a>
@@ -857,13 +865,13 @@ Red Hat also provides a set of language runtime images, based on <a href="https:
 
 **Note:** For a list of available Red Hat UBI images, and associated information about UBI repositories and source code, see <a href="https://access.redhat.com/articles/4238681">Universal Base Images (UBI): Images, repositories, and packages.</a>
 
-#
+
 
 **RHEL 7:**
 
 There is a set of RHEL 7 images as well that you can run on RHEL 8 systems. For RHEL 7, there are both UBI (redistributable) and non-UBI (require subscription access and are non-redistributable) base images. Those images include three regular base images (<code>rhel7, rhel-init</code>, and <code>rhel-minimal</code>) and three UBI images (ubi7, ubi7-init, and ubi7-minimal).
 
-#
+
 
 **Using standard Red Hat base images**
 
@@ -892,7 +900,7 @@ If your goal, however, is just to try to run some simple binaries or pre-package
 
 Red Hat intends for you to always use the latest version of the minimal images, which is implied by simply requesting <code>ubi8/ubi-minimal</code> or <code>ubi8-minimal</code>. Red Hat does not expect to support older versions of minimal images going forward.
 
-#
+
 
 **Using Init Red Hat base images**
 
@@ -902,10 +910,10 @@ The UBI ubi8-init images contains the systemd initialization system, making them
 
 Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
 
-
-
+#
 
 **Dockerfile Best Practices**
+#
 
 For building efficient images follow the below Red Hat recommended guidelines:
 
@@ -959,7 +967,7 @@ Running a container as root could create a security risk, as any process that br
 A container that requires special host-level privileges to function may not be suitable in environments where the application deployer does not have full control over the host infrastructure. A container that requires special privileges will fail the automatic certification, and will be subject to a manual review before the container can be approved for publication.
 
 
-#
+
 
 The Below Dockerfile is an example that uses a UBI as base container image along with required metadata like LABELS.
 
