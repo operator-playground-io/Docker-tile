@@ -85,7 +85,7 @@ Now let's understand container and Images briefly:
 A ***Docker repository*** is where you can store 1 or more versions of a specific Docker image. An image can have 1 or more versions (tags).
 
 ***Docker images*** are read-only templates that are used to create Docker containers. Docker enables you to create new images, update existing images, or download images that others created. Docker images are the build component of Docker.
-****
+
 
 - A ***Docker image*** can be compared to a git repo. A git repo can be hosted inside of a GitHub repository, but it could also be hosted on Gitlab, BitBucket or your own git repo hosting service. It could also sit on your development box and not be hosted anywhere.
 
@@ -123,13 +123,13 @@ Docker Hub is the world’s largest repository of container images with an array
 - **Redhat Catalog:**
 Mission-critical applications require trusted containers. Container images available from the Red Hat Ecosystem Catalog are built from base images that have been vetted by Red Hat’s internal security team and hardened against security flaws. Use the Red Hat Container Catalog (RHCC) to find container images that have been tested, secured, and verified by Red Hat.
 
-]
+
 **Docker Base Images**
 #
 
 A ****base image**** is the image that is used to create all of your container images. 
 Your base image can be an official Docker image, such as Centos, or you can modify an official Docker image to suit your needs, or you can create your own base image from scratch.
-****
+
 
 The Docker Official Images are a curated set of Docker repositories hosted on Docker Hub. They are designed to:
 
@@ -152,7 +152,7 @@ Docker, Inc. sponsors a dedicated team that is responsible for reviewing and pub
 
 
 **What is Dockerfile**
-****
+#
 
 A ***Dockerfile*** is a text document that contains all the commands a user could call on the command line to assemble an image. 
 Docker can build images automatically by reading the instructions from a Dockerfile. 
@@ -162,7 +162,7 @@ The Dockerfile provides the instructions to build a container image through the 
 
 It starts from a previously existing Base image (through the FROM clause) followed by any other needed Dockerfile instructions.
 
-#
+
 
 **Example Dockerfile**
 
@@ -244,7 +244,7 @@ In this section, we will explore what is required to run an application on the D
 
 We will run through one Node.js example for our Docker demonstration. This is a "Hello world" Node.js setup, which we will be running with our Docker setup. We will also cover various related concepts during the demonstration.
 
-***
+#
 **Create an application**
 
 The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
@@ -288,9 +288,9 @@ The package.json file mentions a server.js file, which is the script file we nee
     cat server.js
 
 
-****
+
 **Lab- Build Container Image**
-****
+
   
 
 **Create a Dockerfile**
@@ -405,9 +405,9 @@ Successfully tagged myrepo/node-web-app:v1.0
 
 <br/>
 
-****
+
 **Lab- Application Container Lifecycle**
-****
+
 
 **Create a container**
 #
@@ -543,9 +543,9 @@ The docker rm command removes the container (the container must be stopped befor
 
 <br/>
 
-****
+
 **Lab- Build Container Image**
-****
+
 
 **Create a container**
 #
@@ -682,9 +682,9 @@ The docker rm command removes the container (the container must be stopped befor
 
 <br/>
 
-****
+
 **Lab- Updating an Existing Application Container**
-****
+
 
 **Update the Dockerfile to use ENV variables**
 #
@@ -769,9 +769,9 @@ The docker logs command shows the output of the npm start command, as below, sin
 
 <br/>
 
-****
+
 **Lab- Application Container Lifecycle**
-****
+
 
 **Test the container**
 
@@ -996,8 +996,6 @@ The Below Dockerfile is an example that uses a UBI as base container image along
     ### Install your application here -- add all other necessary items to build your image
     RUN "ANY OTHER INSTRUCTIONS HERE"
 
-
----
 
 ### What You Learned
 
