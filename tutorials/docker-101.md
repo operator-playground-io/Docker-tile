@@ -247,44 +247,43 @@ We will run through one Node.js example for our Docker demonstration. This is a 
 ***
 **Create an application**
 
-#
 The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
 
 
-- #Execute the following command to navigate to your home directory
+* Execute the following command to navigate to your home directory
 
     cd $WORKING_DIR
 
-- #Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
+* Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
 
     mkdir -p nodejsapp
 
-- #Execute the following command to navigate inside the "nodejsapp" directory
+* Execute the following command to navigate inside the "nodejsapp" directory
 
     cd nodejsapp
 
-- #Execute the following command to download the demo code .zip file from Git using the "curl" command
+* Execute the following command to download the demo code .zip file from Git using the "curl" command
 
     curl -OL https://raw.githubusercontent.com/snippet-java/ops/master/docker-demo/node-demo.zip
 
-- #Execute the following command to unzip the node-demo.zip file
+* Execute the following command to unzip the node-demo.zip file
 
     unzip node-demo.zip
 
-- #Execute the following command to navigate to the "node-demo" directory
+* Execute the following command to navigate to the "node-demo" directory
 
     cd node-demo
 In order to run a Node.js app, Node.js requires a package.json file that describes the app and its dependencies.
 
 Here is our package.json file, which lists the package "express" as a dependency:
 
-- #Execute the following command to see the content of the package.json file
+* Execute the following command to see the content of the package.json file
 
     cat package.json
 
 The package.json file mentions a server.js file, which is the script file we need to spin up the REST app. Requesting this app will respond with "Hello world":
 
-- #Execute the following command to see the content of the server.js file
+* Execute the following command to see the content of the server.js file
 
     cat server.js
 
@@ -903,6 +902,102 @@ The UBI ubi8-init images contains the systemd initialization system, making them
 
 Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
 
+
+
+
+**Dockerfile Best Practices**
+
+For building efficient images follow the below Red Hat recommended guidelines:
+
+
++ **Container must be use a base image provided by Red Hat.** This is per-requisite so the application’s runtime dependencies, such as operating system components and libraries, are fully supported. Go to the <a href="https://catalog.redhat.com/software/containers/explore">Red Hat Container</a> Catalog and select a base image to build upon. Use this image’s name in the FROM clause in your dockerfile. We recommend using one of the images that are part of the Red Hat Universal Base Image (UBI) set, such as ubi7/ubi or ubi7/ubi-minimal.
+
++ **Container image to be distributed through non-Red Hat registries does not include Red Hat Enterprise Linux (RHEL) kernel packages.** To ensure, for a UBI type project, RPM packages present in a container image are only from UBI and RHEL user space. Red Hat allows redistribution of UBI content as per <a href="https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf">UBI EULA</a>. Red Hat allows redistribution of RHEL user space packages as per Red Hat Container Certification Appendix. Presence of any kernel package will cause the test to fail. Confirm all Red Hat RPMs included in the container image are from UBI and RHEL user space.
+
++ **Container image must include the following metadata:**
+
++ name: Name of the image vendor: Company name
++ version: Version of the image
++ release: A number used to identify the specific build for this image
++ summary: A short overview of the application or component in this image
++ description: A long _description of the application or component in this image.
+
+Providing metadata in consistent format helps customers inspect and manage images
+
++ **Container image cannot modify content provided by Red Hat packages or layers, except for files that are meant to be modified by end users, such as configuration files**
+
+Unauthorized changes to Red Hat components would impact or invalidate their support hence it is recommended to not modify content in the base image or in Red Hat packages
+
++ **Red Hat components in the container image cannot contain any critical or important vulnerabilities, as defined at**
+<a href="https://access.redhat.com/security/updates/classification">https://access.redhat.com/security/updates/classification</a>
+
+If there are any vulnerabilities in the image then those can introduce risk to your customers. It is recommended to use the most recent version of a layer or package, and to update your image content using the following command:
+
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical
+
++ **Should not modify, replace or combine the Red Hat base layer**
+
+You shouldn't modify base layers provided by Red Hat so that it can be identified and inspected. It is recommended to not use any tools that attempt to or actually modify, replace, combine (aka squash) or otherwise obfuscate layers after the image has been built.
+
++   **The uncompressed container image should have less than 40 layers.**
+
+Ensure that an uncompressed container image has less than 40 layers. Too many layers within a container image can degrade container performance. You can leverage following commands to display layers and their size within a container image:
+
+    docker history
+
++   **Image must include Partner’s software terms and conditions**
+
+Image should have license information so that the end user is aware of the terms and conditions applicable to the software. Including opens source licensing information, if open source components are included in the image. To include license information, create a directory named /licenses and include all relevant licensing and/or terms and conditions as text file(s) in that directory.
+
+Refer link to choose license text <a href="https://choosealicense.com/">https://choosealicense.com/</a>
+
++   **Do not run the image as the root user**
+
+Running a container as root could create a security risk, as any process that breaks out of the container will retain the same privileges on the host machine. Ensure to use a specific USER in the dockerfile to execute command mentioned in the Entrypoint.
+
++   **Do not request host-level privileges**
+A container that requires special host-level privileges to function may not be suitable in environments where the application deployer does not have full control over the host infrastructure. A container that requires special privileges will fail the automatic certification, and will be subject to a manual review before the container can be approved for publication.
+
+
+#
+
+The Below Dockerfile is an example that uses a UBI as base container image along with required metadata like LABELS.
+
+
+    ## Note: Pulling container will require logging into Red Hat's registry using `docker login registry.redhat.io` .
+
+    ## Note: We're using the UBI 7 registry instead of RHEL here
+    FROM registry.redhat.io/ubi7
+
+    MAINTAINER NAME 
+
+    LABEL name="APPLICATION NAME" \
+        maintainer="EMAIL@ADDRESS" \
+        vendor="COMPANY NAME" \
+        version="VERSION NUMBER" \
+        release="RELEASE NUMBER" \
+        summary="APPLICATION SUMMARY" \
+        description="APPLICATION DESCRIPTION" \
+
+    ### add licenses to this directory
+    COPY licenses /licenses
+
+    ### Add necessary Red Hat repos here
+    ## Note: The UBI has different repos than the RHEL repos.
+
+    RUN REPOLIST=ubi-7,ubi-7-optional \
+
+    ### Add your package needs here
+        INSTALL_PKGS="PACKAGES HERE" && \
+        yum -y update-minimal --disablerepo "*" --enablerepo ubi-7 --setopt=tsflags=nodocs \
+        --security --sec-severity=Important --sec-severity=Critical && \
+        yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
+
+    ### Install your application here -- add all other necessary items to build your image
+    RUN "ANY OTHER INSTRUCTIONS HERE"
+
+
+---
 
 ### What You Learned
 

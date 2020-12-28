@@ -1,4 +1,4 @@
-## What you'll learn in this refresher course
+## What you'll learn in this course
 
 This course will help you understand Containers and how to create them using Docker. You would explore the following topics:
 	

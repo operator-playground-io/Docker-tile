@@ -5,7 +5,7 @@
     "footer":"footer.md",
     "tutorials":[      
        {
-          "description":"Docker",
+          "description":"This course will help you understand Containers and how to create them using Docker",
           "duration":"30 min",
           "tutorial_name":"docker-101.md",
           "title":"Docker-101"

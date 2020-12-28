@@ -15,8 +15,11 @@
             "Course"
         ],
         
-        "Course time": [
+        "Course Duration": [
             "30 minutes"
+        ],
+        "Categories": [
+            "Containerization"
         ]
     },
     "deployment_information": {
