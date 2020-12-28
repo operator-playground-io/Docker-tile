@@ -15,7 +15,7 @@ description: Docker
 ### Exploring Docker
 
 
-
+#
 <p style="font-weight: bold; text-align: center">What is Docker</p>
 
 #
@@ -151,6 +151,7 @@ The Docker Official Images are a curated set of Docker repositories hosted on Do
 
 Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all content in the Official Images. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community.
 
+#
 
 ***In the upcoming section "Use Red Hat Universal Base Images" , you will learn about different Red Hat based rhel/ubi base images and advantages of using them to create your application containers.***
 
@@ -159,7 +160,9 @@ Docker, Inc. sponsors a dedicated team that is responsible for reviewing and pub
 ### DockerFile
 
 
-**What is Dockerfile**
+#
+<p style="font-weight: bold; text-align: center">What is Dockerfile</p>
+
 #
 
 A ***Dockerfile*** is a text document that contains all the commands a user could call on the command line to assemble an image. 
@@ -221,8 +224,9 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 ### How to create & manage a Container using Docker
 
+#
+<p style="font-weight: bold; text-align: center">Lab- Create an application</p>
 
-**Lab- Create an application**
 #
 In this section, we will explore what is required to run an application on the Docker host. We will accomplish this by following the steps below:
 
@@ -297,7 +301,7 @@ The package.json file mentions a server.js file, which is the script file we nee
 
 #
 
-**Lab- Build Container Image**
+<p style="font-weight: bold; text-align: center">Lab- Build Container Image</p>
 
 #
 
@@ -415,7 +419,8 @@ Successfully tagged myrepo/node-web-app:v1.0
 
 #
 
-**Lab- Application Container Lifecycle**
+<p style="font-weight: bold; text-align: center">Lab- Application Container Lifecycle</p>
+
 #
 **Create a container**
 
@@ -691,7 +696,10 @@ The docker rm command removes the container (the container must be stopped befor
 <br/>
 
 #
-**Lab- Updating an Existing Application Container**
+
+<p style="font-weight: bold; text-align: center">Lab- Updating an Existing Application Container</p>
+
+
 #
 
 **Update the Dockerfile to use ENV variables**
@@ -777,9 +785,10 @@ The docker logs command shows the output of the npm start command, as below, sin
 
 <br/>
 
+#
+<p style="font-weight: bold; text-align: center">Lab- Testing Container Application</p>
 
-**Lab- Application Container Lifecycle**
-
+#
 
 **Test the container**
 
@@ -836,9 +845,14 @@ As shown in the output below, the docker rmi command will untag the image, then 
 
 Images can also be removed using the image ID.
 
+<br/>
 ### Containerization Best Practices
 
-**Use Red Hat Universal Base Images**
+#
+
+
+<p style="font-weight: bold; text-align: center">Use Red Hat Universal Base Images</p>
+
 #
 **What are Red Hat base images?**
 
@@ -912,7 +926,8 @@ Historically, Red Hat Enterprise Linux base container images were designed for R
 
 #
 
-**Dockerfile Best Practices**
+<p style="font-weight: bold; text-align: center">Dockerfile Best Practices</p>
+
 #
 
 For building efficient images follow the below Red Hat recommended guidelines:
@@ -1006,9 +1021,8 @@ The Below Dockerfile is an example that uses a UBI as base container image along
 
 
 ### What You Learned
-
-
-**Summary**
+#
+<p style="font-weight: bold; text-align: center">Summary</p>
 
 #
 
