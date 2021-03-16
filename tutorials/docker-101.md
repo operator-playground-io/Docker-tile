@@ -16,7 +16,7 @@ description: Docker
 
 
 #
-<p style="font-weight: bold; text-align: center">What is Docker</p>
+<p style="font-weight: bold; text-align: center">What is Docker?</p>
 
 #
  Docker is a software development tool and a virtualization technology that makes it easy to develop, deploy, and manage applications by using containers.
@@ -29,7 +29,6 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
 
 - One of the popular approaches for running an application is over a virtual machine (VM). VMs run applications inside a guest operating system, which runs on virtual hardware powered by the server’s host OS.
 
-    ![Docker architecture](_images/docker_docker-architecture.png  "Docker architecture")
 
 - Containers have a different approach to running applications. Containers do not include an operating system. Containers package the application binaries, utilize a host’s operating system, and share relevant libraries and resources as necessary to run applications.
 
@@ -38,21 +37,19 @@ Container refers to a lightweight, stand-alone, executable package of a piece of
     ![Docker vs VM](_images/Docker-vs-VM.png  "Difference between Docker and VM")
 
 
-**Why Containers ?**
+**Advantages of using Containers**
 
-Containers provide the following benefits
+Unlike virtual machines, containers do not have high overhead and hence enable more efficient usage of the underlying system and resources. Containers provide the following benefits:
+
 - Reduced IT management resources
 
 - Reduced size of snapshots
 
-- Quicker spinning up apps
+- Quick Apps Spin up
 
 - Reduced and simplified security updates
 
 - Less code to transfer, migrate, and upload workloads
-
-
-Unlike virtual machines, containers do not have high overhead and hence enable more efficient usage of the underlying system and resources.
 
 The isolation and security aspects of Docker allow many containers to be run simultaneously on a given host. Once packaged, containers can be shipped and run anywhere.
 
@@ -62,71 +59,75 @@ The isolation and security aspects of Docker allow many containers to be run sim
 
 #
 
-Docker consists of a Docker Engine, which is a client server application. It contains the following components:
-
 ![Docker architecture](_images/docker_architecture.png "Docker architecture")
+
+It contains the following components:
+
+- A Docker Engine which is a client server application.
 
 - A server, which is a type of long-running program called a "daemon process". The daemon creates and manages Docker objects, such as images, containers, networks and volumes.
 
-- A REST API, which specifies interfaces that programs can use to talk to the daemon and give it instructions.
+- A REST API, which specifies the interfaces that programs can use to talk to the daemon and give it instructions.
 
-- A command line interface (CLI) client (the Docker command line).
+- A command line interface (CLI) client (a.k.a the Docker command line).
 
-- The Docker client talks to the Docker daemon, which does the heavy lifting of building, running and distributing Docker containers.
+The Docker client talks to the Docker daemon, which does the heavy lifting of building, running and distributing Docker containers. When a Docker command such as *docker run* is executed, the client passes on this command to the daemon process, which in turn carries them out.
 
-- When a Docker command such as *docker run* is executed, the client passes on this command to the daemon process, which in turn carries them out.
-
-Now let's understand container and Images briefly:
+**More about Containers**
 
 - Containers allow the packaging of your application (and everything that you need to run it) in a “container image”. Inside a container you can include a base operating system, libraries, files and folders, environment variables, volume mount-points, and your application binaries.
 
-- A “container image” is a template for the execution of a container — It means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
+- A “container image” is a template for the execution of a container — it means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
 
 #
  <!-- ***Docker repository*** -->
-<p style="font-weight: bold; text-align: center">Docker repository</p>
+<p style="font-weight: bold; text-align: center">Docker Repository</p>
 
 #
-A ***Docker repository*** is where you can store 1 or more versions of a specific Docker image. An image can have 1 or more versions (tags).
+A ***Docker repository*** is where you can store one or more versions of a specific Docker image. An image can have one or more versions (tags).
 
-***Docker images*** are read-only templates that are used to create Docker containers. Docker enables you to create new images, update existing images, or download images that others created. Docker images are the build component of Docker.
+***Docker images*** are read-only templates that are used to create Docker containers. Docker enables you to create new images, update existing images, or download images that others have created. Docker images are the building blocks of Docker.
 
 
-- A ***Docker image*** can be compared to a git repo. A git repo can be hosted inside of a GitHub repository, but it could also be hosted on Gitlab, BitBucket or your own git repo hosting service. It could also sit on your development box and not be hosted anywhere.
+**Docker Image and Git Repo**
 
-- The same goes for a Docker image. You can choose to not push it anywhere, but you could also push it to the Docker Hub which is both a public and private service for hosting Docker repositories. There are other third party repository hosting services too.
+A Docker image can be compared to a git repo.
 
-- The thing to remember here is a Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
+- A git repo can be hosted inside a GitHub repository, but it could also be hosted on Gitlab, BitBucket or your own git repo hosting service. It could also reside on your development box and need not be hosted anywhere.
 
-- It’s also worth pointing out that the Docker Hub and other third party repository hosting services are called “registries”. A registry stores a collection of repositories.
+- The same goes for a Docker image. You can choose not to push it anywhere, but you could also push it to the Docker Hub which is both a public and private service for hosting Docker repositories. There are other third-party repository hosting services too.
+
+**Note:** The thing to remember here is a Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
+
+
+**Container Registry**
+
+- A Docker Hub and other third-party repository hosting services are called “registries”. A registry stores a collection of repositories.
 
 - You could say a registry has many repositories and a repository has many different versions of the same image which are individually versioned with tags.
 
 
- **Types of Container Registries**
+ **Types of Container Registry**
 
-There are lots of container registries out there. They can be broken down into several distinct categories:
+There are several container registries out there. They can be broken down into the following major distinct categories:
 
 
 - **Cloud-based registries:** Registries that are hosted in the public cloud by a third-party provider, such as Docker Hub.
     
 - **On-premises registries:** Registries that you can install on your own infrastructure. You can create an on-premises registry manually using Docker, via Docker Registry (which is distinct from Docker Hub) or using a third-party registry like Quay.
 
-- **Public registries:** Registries that anyone can access. Docker Hub is an example. So is Quay.io, a hosted public registry that is built using Quay. (To be clear, you can install Quay itself on your infrastructure; Quay.io is a hosted implementation of Quay designed for public access.)
+- **Public registries:** Registries that anyone can access. Docker Hub is an example. So is Quay.io, a hosted public registry that is built using Quay. (To be clear, you can install Quay itself on your infrastructure. Quay.io is a hosted implementation of Quay designed for public access.)
 
-- **Private registries:** Registries that require permissions in order to upload or download container images. You can create private registries using a service like Docker Hub, even though many Docker Hub registries are publicly accessible.
+- **Private registries:** Registries that require permissions to upload or download container images. You can create private registries using a service like Docker Hub, even though many Docker Hub registries are publicly accessible.
 
 
-**Commonly used registries:**
+**Commonly Used Registries:**
 
-- **Quay.io:**
-Red Hat® Quay container and application registry provides secure storage, distribution, and deployment of containers on any infrastructure. It is available as an add-on for OpenShift or as a standalone component.
+- **Quay.io:** Red Hat® Quay is a container and application registry that provides secure storage, distribution, and deployment of containers on any infrastructure. It is available as an add-on for OpenShift or as a standalone component.
 
-- **Docker hub:**
-Docker Hub is the world’s largest repository of container images with an array of content sources including container community developers, open source projects and independent software vendors (ISV) building and distributing their code in containers. Users get access to free public repositories for storing and sharing images or can choose subscription plan for private repos.
+- **Docker hub:** Docker Hub is the world’s largest repository of container images with an array of content sources including container community developers, open source projects and independent software vendors (ISV) building and distributing their code in containers. Users get access to free public repositories for storing and sharing images or can choose subscription plan for private repos.
 
-- **Redhat Catalog:**
-Mission-critical applications require trusted containers. Container images available from the Red Hat Ecosystem Catalog are built from base images that have been vetted by Red Hat’s internal security team and hardened against security flaws. Use the Red Hat Container Catalog (RHCC) to find container images that have been tested, secured, and verified by Red Hat.
+- **Red Hat Catalog:** Mission-critical applications require trusted containers. Container images available from the Red Hat Ecosystem Catalog are built from base images that have been vetted by Red Hat’s internal security team and hardened against security flaws. Use the Red Hat Container Catalog (RHCC) to find those container images that have been tested, secured, and verified by Red Hat.
 
 #
 
@@ -141,11 +142,11 @@ Your base image can be an official Docker image, such as Centos, or you can modi
 
 The Docker Official Images are a curated set of Docker repositories hosted on Docker Hub. They are designed to:
 
- - Provide essential base OS repositories (for example, ubuntu, centos) that serve as the starting point for the majority of users.
+ - Provide essential base OS repositories (for example, ubuntu, centos) that serve as the starting point for most users.
 
- - Provide drop-in solutions for popular programming language runtimes, data stores, and other services, similar to what a Platform as a Service (PAAS) would offer.
+ - Provide drop-in solutions for popular programming language runtimes, data stores, and other services, like what a Platform as a Service (PaaS) would offer.
 
- - Exemplify Dockerfile best practices and provide clear documentation to serve as a reference for other Dockerfile authors.
+ - Exemplify Dockerfile best practices and provide a clear documentation to serve as a reference for other Dockerfile authors.
 
  - Ensure that security updates are applied in a timely manner. This is particularly important as many Official Images are some of the most popular on Docker Hub.
 
@@ -153,7 +154,7 @@ Docker, Inc. sponsors a dedicated team that is responsible for reviewing and pub
 
 #
 
-***In the upcoming section "Use Red Hat Universal Base Images" , you will learn about different Red Hat based rhel/ubi base images and advantages of using them to create your application containers.***
+***In the upcoming section "Containerization Best Practices", you will learn about using Red Hat Universal base images (rhel/ubi) and advantages of using them to create your application containers.***
 
 
 
@@ -161,7 +162,7 @@ Docker, Inc. sponsors a dedicated team that is responsible for reviewing and pub
 
 
 #
-<p style="font-weight: bold; text-align: center">What is Dockerfile</p>
+<p style="font-weight: bold; text-align: center">What is Dockerfile?</p>
 
 #
 
@@ -169,7 +170,7 @@ A ***Dockerfile*** is a text document that contains all the commands a user coul
 Docker can build images automatically by reading the instructions from a Dockerfile. 
 The Dockerfile provides the instructions to build a container image through the command :
 
-**docker build -t [username/]<image-name>[:tag] <dockerfile-path>**
+`docker build -t [username/]<image-name>[:tag] <dockerfile-path>`
 
 It starts from a previously existing Base image (through the FROM clause) followed by any other needed Dockerfile instructions.
 
@@ -177,7 +178,7 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 **Example Dockerfile**
 
-*This example creates a custom WildFly container with a custom administrative user. It also exposes the administrative port 9990 and binds the administrative interface publicly through the parameter ‘bmanagement’.*
+*The below example creates a custom WildFly container with a custom administrative user. It also exposes the administrative port 9990 and binds the administrative interface publicly through the parameter ‘bmanagement’.*
 
 
 
@@ -197,23 +198,23 @@ It starts from a previously existing Base image (through the FROM clause) follow
 
 
   
-**List of instructions used in the Dockerfile**
+**Basic Dockerfile Instructions**
 
 <span style="color:black">
 
 | **Command**   |	**Description** |
 | ------------- |   :-------------|
-| FROM	        | Sets the base image for subsequent |
+| FROM	        | Sets the base image for subsequent instructions |
 | MAINTAINER	| Sets the author field of the generated images  |
 | RUN	        | Execute commands in a new layer on top of the current image and commit the results |
-| CMD	        | Allowed only once (if many then last one takes effect) |
+| CMD	        | Allowed only once (if many instructions then last one takes effect) |
 | LABEL	        | Adds metadata to an image |
 | EXPOSE	    | Informs container runtime that the container listens on the specified network ports at runtime |
 | ENV	        | Sets an environment variable |
-| ADD	        | Copy new files, directories, or remote file URLs from into the filesystem of the container |
+| ADD	        | Copy new files, directories, or remote file URLs from local storage into docker image |
 | COPY          | Copy new files or directories into the filesystem of the container |
 | ENTRYPOINT	| Allows you to configure a container that will run as an executable |
-| VOLUME	    | Creates a mount point and marks it as holding externally mounted volumes from native host or other containers |
+| VOLUME	    | Creates a mount point and 'marks' it as holding externally mounted volumes from native host or other containers |
 | USER	        | Sets the username or UID to use when running the image |
 | WORKDIR	    | Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD commands |
 | ARG	        | Defines a variable that users can pass at build-time to the builder using --build-arg |
@@ -228,97 +229,86 @@ It starts from a previously existing Base image (through the FROM clause) follow
 <p style="font-weight: bold; text-align: center">Lab- Create an application</p>
 
 #
-In this section, we will explore what is required to run an application on the Docker host. We will accomplish this by following the steps below:
+In this section, we will explore the essential requirements to run an application on the Docker host. We can accomplish these requirements by following the steps below:
 
-- **Create an application**
+- Create an application
+- Create a Dockerfile
+- Build an image from a Dockerfile for an application
+- Create a container
+- Access the application
+- Manage containers
+- Update the application code
+- Update the Dockerfile to use ENV variables
+- Recreate the image from the Dockerfile
+- Create a container
+- Test the container
+- Delete images
 
-- **Create a Dockerfile**
-
-- **Build an image from a Dockerfile for an application**
-
-- **Create a container**
-
-- **Access the application**
-
-- **Manage containers**
-
-- **Update the application code**
-
-- **Update the Dockerfile to use ENV variables**
-
-- **Recreate the image from the Dockerfile**
-
-- **Create a container**
-
-- **Test the container**
-
-- **Delete images**
 
 We will run through one Node.js example for our Docker demonstration. This is a "Hello world" Node.js setup, which we will be running with our Docker setup. We will also cover various related concepts during the demonstration.
 
 
 **Create an application**
 
-The application you will be deploying is a sample "Hello world" Node.js application. Before we start working on deployment, let's first create the files required for the Node.js application.
+Before we start working on deployment, let's first create the files required for the Node.js application.
 
 
-* Execute the following command to navigate to your home directory
+* Execute the following command to navigate to your home directory.
 
-    cd $WORKING_DIR
+        cd $WORKING_DIR
 
-* Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase
+* Execute the following command to create a "nodejsapp" directory. This directory will contain the application codebase.
 
-    mkdir -p nodejsapp
+        mkdir -p nodejsapp
 
-* Execute the following command to navigate inside the "nodejsapp" directory
+* Execute the following command to navigate inside the "nodejsapp" directory.
 
-    cd nodejsapp
+        cd nodejsapp
 
-* Execute the following command to download the demo code .zip file from Git using the "curl" command
+* Execute the following command to download the demo code .zip file from Git using the "curl" command.
 
-    curl -OL https://raw.githubusercontent.com/snippet-java/ops/master/docker-demo/node-demo.zip
+        curl -OL https://raw.githubusercontent.com/snippet-java/ops/master/docker-demo/node-demo.zip
 
-* Execute the following command to unzip the node-demo.zip file
+* Execute the following command to unzip the node-demo.zip file.
 
-    unzip node-demo.zip
+        unzip node-demo.zip
 
-* Execute the following command to navigate to the "node-demo" directory
+* Execute the following command to navigate to the "node-demo" directory.
 
-    cd node-demo
-In order to run a Node.js app, Node.js requires a package.json file that describes the app and its dependencies.
+        cd node-demo
 
-Here is our package.json file, which lists the package "express" as a dependency:
+In order to run a Node.js app, Node.js requires a package.json file that describes the app and its dependencies. Here is our package.json file, which lists the package "express" as a dependency:
 
 * Execute the following command to see the content of the package.json file
 
-    cat package.json
+        cat package.json
 
 The package.json file mentions a server.js file, which is the script file we need to spin up the REST app. Requesting this app will respond with "Hello world":
 
 * Execute the following command to see the content of the server.js file
 
-    cat server.js
+        cat server.js
 
 #
 
-<p style="font-weight: bold; text-align: center">Lab- Build Container Image</p>
+<p style="font-weight: bold; text-align: center">Lab: Build Container Image</p>
 
 #
 
-**Create a Dockerfile**
+**02. Create a Dockerfile**
 
-Before we actually create a Dockerfile, let’s take a closer look at some Docker terminology.
+Before we create a Dockerfile, let’s take a closer look at some important Docker terminology.
 
 The steps required to pack the application artifacts are listed with simple syntax in a file known as a "Dockerfile". In addition to artifacts, this file can also contain information such as how to start an application, or specify on which port the application will be listening:
 
 
-- #Execute the following command to ensure that you are in correct directory
+- Execute the following command to ensure that you are in correct directory.
 
-    cd $WORKING_DIR/nodejsapp/node-demo
+        cd $WORKING_DIR/nodejsapp/node-demo
 
-- #Execute the following command to see the contents of the Dockerfile
+- Execute the following command to see the contents of the Dockerfile.
 
-    cat Dockerfile
+        cat Dockerfile
 
 Let’s discuss the contents of the Dockerfile.
 
@@ -326,7 +316,7 @@ Let’s discuss the contents of the Dockerfile.
 
 This also suggests that our application image will be based on another image, which in turn provides the Node environment for us.
 
-**WORKDIR** - Creates an app directory in which to place all of the application artifacts inside a container. We will discuss containers shortly. This is the working directory.
+**WORKDIR** - Creates an app directory in which to place all the application artifacts inside a container. This is the working directory. We will discuss Containers shortly. 
 
 **COPY** - Copies the files from the local directory we are using into the directory specified by our WORKDIR command.
 
@@ -339,22 +329,23 @@ This also suggests that our application image will be based on another image, wh
 
 
 \
-**Build an image from a Dockerfile for an application**
+**03. Build an image from a Dockerfile for an application**
 
 
-Let’s create an image from our Dockerfile, which will make an image of the Node.js application.
+Now, let’s create an image from our Dockerfile, which will make an image of the Node.js application.
 
 The `docker build -t [username/]<image-name>[:tag] <dockerfile-path>` command is used to build a Docker image. It begins with a previously existing base image (referenced with the FROM clause) and is followed by any other necessary Dockerfile instructions.
 
 This process is very similar to the compilation of source code into binary output; however, in this case, the output of the Dockerfile will be a container image.
 
-- #Execute the following command (from the directory containing the Dockerfile) to build an image from the Dockerfile created in the previous section
+- Execute the following command (from the directory containing the Dockerfile) to build an image from the Dockerfile created in the previous section.
 
-    docker build -t myrepo/node-web-app:v1.0 .
+        docker build -t myrepo/node-web-app:v1.0 .
 
-The -t option is used in the command above to tag the image. Tags are helpful for finding images via tag name. It is customary to tag images as `[username/]<image-name>[:tag]`.
+The -t option is used in the command above to tag the image. It is customary to tag images as `[username/]<image-name>[:tag]`.
 
-If a tag is not mentioned with the -t option, then it is assigned the default "latest".
+
+Tags are helpful for finding images via tag name. If a tag is not mentioned with the -t option, then it is assigned the default "latest".
 
 As the build progresses, Docker will print:
 
@@ -406,9 +397,9 @@ Removing intermediate container da99aaa322a1
 Successfully built f2aef4b568ec
 Successfully tagged myrepo/node-web-app:v1.0
 
-- #Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.0" image is listed
+- Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.0" image is listed.
 
-    docker images | grep myrepo/node-web-app
+        docker images | grep myrepo/node-web-app
 
 > REPOSITORY              TAG            IMAGE ID            CREATED             SIZE
 >
@@ -422,23 +413,23 @@ Successfully tagged myrepo/node-web-app:v1.0
 <p style="font-weight: bold; text-align: center">Lab- Application Container Lifecycle</p>
 
 #
-**Create a container**
+**04. Create a Container**
 
 
 As we've already discussed, a container is a runnable instance of an image. Let’s create a container out of the image "myrepo/node-web-app:1.0".
 
 
-The docker run command can be used to create and run a container.
+The `docker run` command can be used to create and run a container.
 
-- #Execute the following command to run the container from the image "myrepo/node-web-app" and name the container "node_web_app"
+- Execute the following command to run the container from the image "myrepo/node-web-app" and name the container "node_web_app".
 
-    docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.0
+        docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.0
 
-Our Dockerfile exposes port 8080, the port on which the application listens. But this is a private port and can’t be accessed externally.
+Our Dockerfile exposes port `8080`, the port on which the application listens. But this is a private port and can’t be accessed externally.
 
-The -p flag redirects a public port to a private port inside the container. The docker run command maps 49160 to port 8080 of the container. A request to 49160 will be routed to port 8080 on the container.
+The `-p` flag redirects a public port to a private port inside the container. The `docker run` command maps the port 49160 to port 8080 of the container. A request to port 49160 will be routed to port 8080 on the container.
 
-The -d flag runs the container in detached mode, leaving the container running in the background.
+The `-d` flag runs the container in detached mode, leaving the container running in the background.
 
 After executing the docker run command, a unique container ID will be displayed as follows:
 
@@ -446,32 +437,31 @@ After executing the docker run command, a unique container ID will be displayed 
 
 <br/>
 
-**Listing containers**
+**Listing Containers**
 
 
-We can generate a list of containers, just as we could with images:
+We can generate a list of containers, just as we could do with images.
 
-- #Execute the following command to list your running containers
+- Execute the following command to list your running containers.
 
-    docker ps | grep node_web_app
+        docker ps | grep node_web_app
 
-- #The following command will list all containers, irrespective of status (e.g., running, stopped, or exited)
+- The following command will list all containers, irrespective of status (e.g., running, stopped, or exited).
 
-    docker ps -a
+        docker ps -a
 
 <br/>
 
 **Accessing the application**
 
 
-The container that hosts our Node.js application is now running.
+The container that hosts our Node.js application is now running. Let’s try to access it:
 
-Let’s try to access it:
+- Execute the following command to access the container app.
 
-- #Execute the following command to access the container app
+        curl -i localhost:49160
 
-    curl -i localhost:49160
-It prints the response of the Node.js application, as below:
+- It will prints the response of the Node.js application, as below.
 
 > HTTP/1.1 200 OK
 > X-Powered-By: Express
@@ -485,74 +475,77 @@ It prints the response of the Node.js application, as below:
 
 <br/>
 
-**Manage containers**
+**07. Managing Containers**
 
 
-Let’s check out the various operations we can perform with containers.
+Let’s walk through some important fundamental operations that can be performed with Container
 
-**View inside container**
+**a. View inside container**
 
-Just as we can navigate within a virtual machine's directory, we can also navigate within a container. There is a Docker command that allows us to navigate inside a container and view its contents, as if we were using a physical machine:
+Just as we can navigate within a virtual machine's directory, we can also navigate within a container. There is a Docker command that allows us to navigate inside a container and view its contents, as if we are using a physical machine.
 
-- #Execute the following command to store the container ID in a variable
+- Execute the following command to store the container ID in a variable.
 
-    container_id=$(docker ps | grep "myrepo/node-web-app:v1.0" | awk '{print $1}')
+        container_id=$(docker ps | grep "myrepo/node-web-app:v1.0" | awk '{print $1}')
 
-- #Execute the following command to connect to the container
+- Execute the following command to connect to the container.
 
-    docker exec -it $container_id /bin/bash
+        docker exec -it $container_id /bin/bash
+
 Once you connect to the container, execute the following command to see the working directory:
 
-    pwd
-You will see the following response:
+        pwd
+
+You will see the following response.
 
 > /usr/src/app
 
-- #Execute the following command to list the files inside the working directory
+- Execute the following command to list the files inside the working directory.
 
-    ls
+        ls
 
 You will see the following response:
 
 > Dockerfile     licenses       package.json       server_v2.js
 > Dockerfile_v2  node_modules   package-lock.json  server.js
 
-The output above shows that all the application files are located in the working directory (/usr/src/app) that was set as the value for WORKDIR in the Dockerfile.
+The output above shows that all the application files are stored in the working directory (/usr/src/app) that was set as the value for WORKDIR in the Dockerfile.
 
 We can run commands inside the container to verify that the Node server process is running.
 
-- #Execute the following command to exit the container shell
+- Execute the following command to exit the container shell.
 
-    exit
+        exit
 
-**Stop or start the container**
+**b. Stop or start the container**
 
 Containers can be stopped and started, just like applications.
 
-The docker stop command stops the container:
+The `docker stop` command stops the container:
 
-- #Execute the following command to stop the "node_web_app" container
+- Execute the following command to stop the "node_web_app" container.
 
-    docker stop node_web_app
+        docker stop node_web_app
 
-The docker start command starts the container.
+The `docker start` command starts the container.
 
-- #Execute the following command to start the "node_web_app container" after it has been stopped
+- Execute the following command to start the "node_web_app container" after it has been stopped.
 
-    docker start node_web_app
+        docker start node_web_app
 
-The docker stop and docker start commands operate with both the container name and the container ID. The container ID can be obtained by listing the containers.
+The `docker stop` and `docker start` commands operate with both the container name and the container ID. The container ID can be obtained by listing the containers.
 
-**Remove container**
+**c. Remove Container**
 
-The docker rm command removes the container (the container must be stopped before it can be removed):
+The `docker rm` command removes the container (the container must be stopped before it can be removed):
 
-- #Execute the following command to stop the "node_web_app" container
+- Execute the following command to stop the "node_web_app" container.
 
-    docker stop node_web_app
-- #Execute the following command to remove the stopped container
+        docker stop node_web_app
 
-    docker rm node_web_app   
+- Execute the following command to remove the stopped container.
+
+        docker rm node_web_app   
 
 <br/>
 
@@ -564,78 +557,79 @@ The docker rm command removes the container (the container must be stopped befor
 
 #
 
-**Update the Dockerfile to use ENV variables**
+**08. Update the Dockerfile to use ENV Variables**
 
 
 We have hardcoded port 8080 in the Dockerfile and the server.js file. Instead of hardcoding the port, we can use an ENV variable to hold its value and then access its value via variable.
 
-- #Execute the following command to ensure that you are in correct directory
+- Execute the following command to ensure that you are in correct directory.
 
-    cd $WORKING_DIR/nodejsapp/node-demo
+        cd $WORKING_DIR/nodejsapp/node-demo
 
 
 Let's use the Dockerfile with ENV variable. Execute below command to use updated Dockerfile:
 
     mv Dockerfile_v2 Dockerfile
 
-- #Execute the following command to see the contents of the updated Dockerfile
+- Execute the following command to see the contents of the updated Dockerfile.
 
-    cat Dockerfile
+        cat Dockerfile
 
 We added the ENV variable to hold the value "8080" and updated the EXPOSE command to use this ENV variable.
 
 Logging is available at the container level. Let’s update our application to include some logging statements.
 
-Please ensure you remove the container and image we created in the previous exercise. Use the instructions detailed above to remove our application container and application image.
+**Note:** Please ensure you remove the container and the image we created in the previous exercise. Use the instructions detailed above to remove our application container and application image.
 
 
 <br/>
 
-**Update the application code to use ENV variables and loggers**
+**09. Update the application code to use ENV variables and loggers**
 
 
-Let’s alter the server.js file to use the ENV variable value and a few logger statements. Execute below command to use updated server.js file:
+Let’s alter the server.js file to use the ENV variable value and a few logger statements.
 
-    mv server_v2.js server.js
+- Execute below command to use updated server.js file:
 
-#Execute the following command to see the contents of the updated server.js file
+        mv server_v2.js server.js
 
-    cat server.js
+- Execute the following command to see the contents of the updated server.js file.
+
+        cat server.js
 
 <br/>
 
-**Recreate the image from the Dockerfile**
+**10. Recreate the image from the Dockerfile**
 
 
-- #Execute the following command (from the directory containing the Dockerfile) to build the image again
+- Execute the following command (from the directory containing the Dockerfile) to build the image again.
 
-    docker build -t myrepo/node-web-app:v1.1 .
+        docker build -t myrepo/node-web-app:v1.1 .
 
 In the command above, we set the version of the image to "1.1".
 
-- #Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.1" image is listed
+- Execute the following command to list the images and verify that the "myrepo/node-web-app:v1.1" image is listed.
 
-    docker images | grep myrepo/node-web-app
+        docker images | grep myrepo/node-web-app
 
 <br/>
 
-**Create a container**
+**11. Create a container**
 
 
-- #Execute the following command to run the container from the image "myrepo/node-web-app:v1.1" with a user-provided name
+- Execute the following command to run the container from the image "myrepo/node-web-app:v1.1" with a user-provided name.
 
-docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.1
+        docker run --name node_web_app -p 49160:8080 -d myrepo/node-web-app:v1.1
 
-- #Execute the following command to list the containers
+- Execute the following command to list the containers.
 
-    docker ps | grep node_web_app
+        docker ps | grep node_web_app
 
+- Execute the following command to view the logs.
 
-- #Execute the following command to view the logs
+        docker logs node_web_app
 
-    docker logs node_web_app
-
-The docker logs command shows the output of the npm start command, as below, since this is the command we execute when starting a container:
+The `docker logs` command shows the output of the `npm start` command, as below, since this is the command we execute when starting a container:
 
 > docker_web_app@1.0.0 start /usr/src/app
 > node server.js
@@ -652,11 +646,12 @@ The docker logs command shows the output of the npm start command, as below, sin
 
 #
 
-**Test the container**
+**12. Test the container**
 
-- #Execute the following command to access the container app
+- Execute the following command to access the container app.
 
-    curl -i localhost:49160
+        curl -i localhost:49160
+
 You will see the output of the curl command, as below (note the difference in the "Hello world" statement):
 
 > HTTP/1.1 200 OK
@@ -671,22 +666,23 @@ You will see the output of the curl command, as below (note the difference in th
 
 <br/>
 
-**Remove the image**
+**13. Remove the image**
 
 
-The docker rmi command is used to remove an image.
+The `docker rmi` command is used to remove an image. Please ensure you have stopped and removed the container before you remove the image.
 
-Please ensure you have stopped and removed the container before you remove the image.
+- Execute the following command to stop the "node_web_app" container.
 
-- #Execute the following command to stop the "node_web_app" container
+        docker stop node_web_app
 
-    docker stop node_web_app
-- #Execute the following command to remove the "node_web_app" container
+- Execute the following command to remove the "node_web_app" container.
 
-    docker rm node_web_app
-- #Execute the following command to remove the image "myrepo/node-web-app"
+        docker rm node_web_app
 
-    docker rmi myrepo/node-web-app:v1.1
+- Execute the following command to remove the image "myrepo/node-web-app".
+
+        docker rmi myrepo/node-web-app:v1.1
+
 As shown in the output below, the docker rmi command will untag the image, then delete the image from the server:
 
 > Untagged: myrepo/node-web-app:v1.1
@@ -716,13 +712,16 @@ Images can also be removed using the image ID.
 
 <p style="font-weight: bold; text-align: center">Use Red Hat Universal Base Images</p>
 
+**01 Use Red Hat Universal Base Images**
+
 #
 **What are Red Hat base images?**
 
 Red Hat provides multiple base images that you can use as a starting point for your own images. These images are available through the Red Hat Registry (registry.access.redhat.com and registry.redhat.io) and described in the <a href="https://access.redhat.com/containers/?count=10#/category/Base%20Image"> Red Hat Container Catalog. </a>
 
 ***Red Hat Enterprise Linux (RHEL)*** base images are meant to form the foundation for the container images you build.
-**Characteristics of RHEL base images include:**
+
+Characteristics of RHEL base images include:
 
 + **Supported:** Supported by Red Hat for use with your containerized applications. Contains the same secured tested, and certified software packages you have in Red Hat Enterprise Linux. 
 + **Cataloged:** Listed in the <a href="https://access.redhat.com/containers/"> Red Hat Container Catalog. </a>, where you can find descriptions, technical details, and a health index for each image.
@@ -731,7 +730,7 @@ Red Hat provides multiple base images that you can use as a starting point for y
 + **Reusable:** Only need to be downloaded and cached in your production environment once, where each base image can be reused by all containers that include it as their foundation.
 
 
-**RHEL 8:**
+**RHEL 8 Images**
 
 For RHEL 8, all Red Hat base images are available as new ***Universal Base Images (UBI)***. These include versions of RHEL standard, minimal, init, and Red Hat Software Collections that are all now freely available and redistributable.
 
@@ -744,13 +743,13 @@ Red Hat also provides a set of language runtime images, based on <a href="https:
 
 
 
-**RHEL 7:**
+**RHEL 7 Images**
 
 There is a set of RHEL 7 images as well that you can run on RHEL 8 systems. For RHEL 7, there are both UBI (redistributable) and non-UBI (require subscription access and are non-redistributable) base images. Those images include three regular base images (<code>rhel7, rhel-init</code>, and <code>rhel-minimal</code>) and three UBI images (ubi7, ubi7-init, and ubi7-minimal).
 
 
 
-**Using standard Red Hat base images**
+**Standard Red Hat Base Images**
 
 Standard RHEL 8 base images (<code>ubi8</code>) have a robust set of software features that include the following:
 
@@ -760,7 +759,7 @@ Standard RHEL 8 base images (<code>ubi8</code>) have a robust set of software fe
 
 
 
-**Using minimal Red Hat base images**
+**Minimal Red Hat Base Images**
 
 The <code>ubi8-minimal</code> images are stripped-down RHEL images to use when a bare-bones base image in desired. If you are looking for the smallest possible base image to use as part of the larger Red Hat ecosystem, you can start with these minimal images.
 
@@ -769,82 +768,87 @@ RHEL minimal images provide a base for your own container images that is less th
 Here are some features of the minimal base images:
 
 + **Small size:** Minimal images are about 92M on disk and 32M compressed. This makes it less than half the size of the standard images.
-    Software installation (microdnf): Instead of including the full-blown yum facility for working with software repositories and RPM software packages, the minimal images includes the microdnf utility. Microdnf is a scaled-down version of dnf. It includes only what is needed to enable and disable repositories, as well as install, remove, and update packages. It also has a clean option, to clean out cache after packages have been installed.
++ **Software installation (microdnf):** Instead of including the full-blown yum facility for working with software repositories and RPM software packages, the minimal images includes the microdnf utility. Microdnf is a scaled-down version of dnf. It includes only what is needed to enable and disable repositories, as well as install, remove, and update packages. It also has a clean option, to clean out cache after packages have been installed.
 + **Based on RHEL packaging:** Because minimal images incorporate regular RHEL software RPM packages, with a few features removed such as extra language files or documentation, you can continue to rely on RHEL repositories for building your images. This allows you to still maintain compliance requirements you have that are based on RHEL software. Features of minimal images make them perfect for trying out applications you want to run with RHEL, while carrying the smallest possible amount of overhead. What you don’t get with minimal images is an initialization and service management system (systemd or System V init), a Python run-time environment, and a bunch of common shell utilities.
 + **Modules for <code>microdnf</code> are not supported:** Modules used with the <code>dnf</code> command let you install multiple versions of the same software, when available. The <code>microdnf</code> utility included with minimal images does not support modules. So if modules are required, you should use a non-minimal base images, which include yum.
 
-If your goal, however, is just to try to run some simple binaries or pre-packaged software that doesn’t have a lot of requirements from the operating system, the minimal images might suit your needs. If your application does have dependencies on other software from RHEL, you can simply use microdnf to install the needed packages at build time.
+If your goal, however, is just to try running some simple binaries or pre-packaged software that doesn’t have a lot of requirements from the operating system, the minimal images might suit your needs. If your application does have dependencies on other software from RHEL, you can simply use microdnf to install the needed packages at build time.
 
-Red Hat intends for you to always use the latest version of the minimal images, which is implied by simply requesting <code>ubi8/ubi-minimal</code> or <code>ubi8-minimal</code>. Red Hat does not expect to support older versions of minimal images going forward.
+Red Hat recommends to always use the latest version of the minimal images, which is implied by simply requesting <code>ubi8/ubi-minimal</code> or <code>ubi8-minimal</code>. Red Hat does not expect to support older versions of minimal images going forward.
 
 
 
-**Using Init Red Hat base images**
+**Init Red Hat Base Images**
 
-The UBI ubi8-init images contains the systemd initialization system, making them useful for building images in which you want to run systemd services, such as a web server or file server. The Init image contents are less than what you get with the standard images, but more than what is in the minimal images.
+The UBI ubi8-init images contain the systemd initialization systemd, making them useful for building images in which you want to run systemd services, such as a web server or file server. The Init image contents are less than what you get with the standard images, but more than what is in the minimal images.
 
-**Note:** Because the <code>ubi8-init</code> image builds on top of the ubi8 image, their contents are mostly the same. There are a few critical differences, however. In <code>ubi8-init</code>, the Cmd is set to <code>/sbin/init</code>, instead of <code>bash</code>, to start the systemd Init service by default. It includes <code>ps</code> and process related commands (procps-ng package), which <code>ubi8</code> does not. Also, <code>ubi8-init</code> sets SIGRTMIN+3 as the StopSignal, as systemd in ubi8-init ignores normal signals to exit (SIGTERM and SIGKILL), but will terminate if it receives SIGRTMIN+3.
+**Note:** Because the <code>ubi8-init</code> image builds on top of the ubi8 image, their contents are mostly the same. There are a few critical differences, however. 
 
-Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications, but were not free to redistribute. This can create challenges for some organizations that need to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
+- In <code>ubi8-init</code>, the Cmd is set to <code>/sbin/init</code>, instead of <code>bash</code>, to start the systemd Init service by default. It includes <code>ps</code> and process related commands (procps-ng package), which <code>ubi8</code> does not feature.
+- Also, <code>ubi8-init</code> sets SIGRTMIN+3 as the StopSignal, as systemd in ubi8-init ignores normal signals to exit (SIGTERM and SIGKILL), but will terminate if it receives SIGRTMIN+3.
+
+Historically, Red Hat Enterprise Linux base container images were designed for Red Hat customers to run enterprise applications but were not free to redistribute. This led to challenges facing some organizations to redistribute their applications. That’s where the Red Hat Universal Base Images come in.
 
 #
 
-<p style="font-weight: bold; text-align: center">Dockerfile Best Practices</p>
+<p style="font-weight: bold; text-align: center">02. Dockerfile Best Practices</p>
 
 #
 
-For building efficient images follow the below Red Hat recommended guidelines:
+For building efficient images, follow the below Red Hat recommended guidelines:
 
+**a. Container must use a base image provided by Red Hat.**
 
-+ **Container must be use a base image provided by Red Hat.** This is per-requisite so the application’s runtime dependencies, such as operating system components and libraries, are fully supported. Go to the <a href="https://catalog.redhat.com/software/containers/explore">Red Hat Container</a> Catalog and select a base image to build upon. Use this image’s name in the FROM clause in your dockerfile. We recommend using one of the images that are part of the Red Hat Universal Base Image (UBI) set, such as ubi7/ubi or ubi7/ubi-minimal.
+This is per-requisite so the application’s runtime dependencies, such as operating system components and libraries are fully supported. Go to the <a href="https://catalog.redhat.com/software/containers/explore">Red Hat Container</a> Catalog and select a base image to build upon. Use this image’s name in the FROM clause in your dockerfile. We recommend using one of the images that are part of the Red Hat Universal Base Image (UBI) set, such as ubi7/ubi or ubi7/ubi-minimal.
 
-+ **Container image to be distributed through non-Red Hat registries does not include Red Hat Enterprise Linux (RHEL) kernel packages.** To ensure, for a UBI type project, RPM packages present in a container image are only from UBI and RHEL user space. Red Hat allows redistribution of UBI content as per <a href="https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf">UBI EULA</a>. Red Hat allows redistribution of RHEL user space packages as per Red Hat Container Certification Appendix. Presence of any kernel package will cause the test to fail. Confirm all Red Hat RPMs included in the container image are from UBI and RHEL user space.
+**b. Container image to be distributed through non-Red Hat registries does not include Red Hat Enterprise Linux (RHEL) kernel packages.** 
 
-+ **Container image must include the following metadata:**
+For a UBI type project, ensure that RPM packages present in a container image are only from UBI and RHEL user space. Red Hat allows redistribution of UBI content as per <a href="https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf">UBI EULA</a>. Red Hat allows redistribution of RHEL user space packages as per Red Hat Container Certification Appendix. Presence of any kernel package will cause the test to fail. Confirm all Red Hat RPMs included in the container image are from UBI and RHEL user space.
+
+**c. Container image must include the following metadata.**
 
 + name: Name of the image vendor: Company name
 + version: Version of the image
 + release: A number used to identify the specific build for this image
 + summary: A short overview of the application or component in this image
-+ description: A long _description of the application or component in this image.
++ description: A long description of the application or component in this image.
 
-Providing metadata in consistent format helps customers inspect and manage images
+Providing metadata in consistent format helps customers inspect and manage the images
 
-+ **Container image cannot modify content provided by Red Hat packages or layers, except for files that are meant to be modified by end users, such as configuration files**
+**d. Container image cannot modify content provided by Red Hat packages or layers, except for files that are meant to be modified by end users, such as configuration files.**
 
 Unauthorized changes to Red Hat components would impact or invalidate their support hence it is recommended to not modify content in the base image or in Red Hat packages
 
-+ **Red Hat components in the container image cannot contain any critical or important vulnerabilities, as defined at**
+**e. Red Hat components in the container image cannot contain any critical or important vulnerabilities, as defined at**
 <a href="https://access.redhat.com/security/updates/classification">https://access.redhat.com/security/updates/classification</a>
 
 If there are any vulnerabilities in the image then those can introduce risk to your customers. It is recommended to use the most recent version of a layer or package, and to update your image content using the following command:
 
-    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical
+        yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical
 
-+ **Should not modify, replace or combine the Red Hat base layer**
+**f. You should not modify, replace or combine the Red Hat base layer.**
 
-You shouldn't modify base layers provided by Red Hat so that it can be identified and inspected. It is recommended to not use any tools that attempt to or actually modify, replace, combine (aka squash) or otherwise obfuscate layers after the image has been built.
+You shouldn't modify base layers provided by Red Hat so that it can be identified and inspected. It is recommended to not use any tools that attempt to or modify, replace, combine (aka squash) or otherwise obfuscate layers after the image has been built.
 
-+   **The uncompressed container image should have less than 40 layers.**
+**g. The uncompressed container image should have less than 40 layers.**
 
 Ensure that an uncompressed container image has less than 40 layers. Too many layers within a container image can degrade container performance. You can leverage following commands to display layers and their size within a container image:
 
-    docker history
+        docker history
 
-+   **Image must include Partner’s software terms and conditions**
+**h. Image must include Partner’s software terms and conditions.**
 
 Image should have license information so that the end user is aware of the terms and conditions applicable to the software. Including opens source licensing information, if open source components are included in the image. To include license information, create a directory named /licenses and include all relevant licensing and/or terms and conditions as text file(s) in that directory.
 
-Refer link to choose license text <a href="https://choosealicense.com/">https://choosealicense.com/</a>
+Refer this link to choose license text <a href="https://choosealicense.com/">https://choosealicense.com/</a>.
 
-+   **Do not run the image as the root user**
+**i. Do not run the image as the root user.**
 
-Running a container as root could create a security risk, as any process that breaks out of the container will retain the same privileges on the host machine. Ensure to use a specific USER in the dockerfile to execute command mentioned in the Entrypoint.
+Running a container as root could create a security risk, as any process that breaks out of the container will retain the same privileges on the host machine. Ensure to use a specific USER in the Dockerfile to execute command mentioned in the Entrypoint.
 
-+   **Do not request host-level privileges**
+**j. Do not request host-level privileges.**
+
 A container that requires special host-level privileges to function may not be suitable in environments where the application deployer does not have full control over the host infrastructure. A container that requires special privileges will fail the automatic certification, and will be subject to a manual review before the container can be approved for publication.
-
-
 
 
 The Below Dockerfile is an example that uses a UBI as base container image along with required metadata like LABELS.
@@ -883,25 +887,28 @@ The Below Dockerfile is an example that uses a UBI as base container image along
     RUN "ANY OTHER INSTRUCTIONS HERE"
 
 
-### What You Learned
+### What You've Learned
 #
-<p style="font-weight: bold; text-align: center">Summary</p>
+<p style="font-weight: bold; text-align: center">Course Summary</p>
 
 #
 
-**What you learned in this course**
+This final section reviews the different topics covered in this tutorial and invites you to consider what you have learned in this course. 
 
-This course provided a refresher on Containers and how to create them using Docker, which includes:
-- What is Docker
+In this Lab section so far, we have discussed the following topics:
 
-- What are Docker Images
+1. What is Docker?
 
-- Docker Repositories
+2. What are Docker Images?
 
-- What is a Dockerfile
+3. Docker Repositories?
 
-- How to create a Docker Container
+4. What is a Dockerfile?
 
-- Best practices while working with Containers
+5. How to create a Docker Container?
+
+6. Best practices while working with Containers?
 
 ![Docker summary](_images/docker-summary.png  "Docker summary")
+
+Having completed this course, you should be able to comprehend docker best practices and working with containers to manage applications.
