@@ -97,7 +97,7 @@ A Docker image can be compared to a git repo.
 
 - The same goes for a Docker image. You can choose not to push it anywhere, but you could also push it to the Docker Hub which is both a public and private service for hosting Docker repositories. There are other third-party repository hosting services too.
 
-**Note:** The thing to remember here is a Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
+**Note:** The thing to remember here is that Docker repository is a place for you to publish and access your Docker images. Just like GitHub is a place for you to publish and access your git repos.
 
 
 **Container Registry**
@@ -214,7 +214,7 @@ It starts from a previously existing Base image (through the FROM clause) follow
 | ADD	        | Copy new files, directories, or remote file URLs from local storage into docker image |
 | COPY          | Copy new files or directories into the filesystem of the container |
 | ENTRYPOINT	| Allows you to configure a container that will run as an executable |
-| VOLUME	    | Creates a mount point and 'marks' it as holding externally mounted volumes from native host or other containers |
+| VOLUME	    | Creates a mount point and marks it as `holding externally mounted volumes` from native host or other containers |
 | USER	        | Sets the username or UID to use when running the image |
 | WORKDIR	    | Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD commands |
 | ARG	        | Defines a variable that users can pass at build-time to the builder using --build-arg |
