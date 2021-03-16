@@ -291,7 +291,7 @@ The package.json file mentions a server.js file, which is the script file we nee
 
 #
 
-<p style="font-weight: bold; text-align: center">Lab: Build Container Image</p>
+<p style="font-weight: bold; text-align: center">Lab- Build Container Image</p>
 
 #
 
