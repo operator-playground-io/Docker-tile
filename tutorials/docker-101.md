@@ -710,9 +710,7 @@ Images can also be removed using the image ID.
 #
 
 
-<p style="font-weight: bold; text-align: center">Use Red Hat Universal Base Images</p>
-
-**01 Use Red Hat Universal Base Images**
+<p style="font-weight: bold; text-align: center">01. Use Red Hat Universal Base Images</p>
 
 #
 **What are Red Hat base images?**
